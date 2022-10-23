@@ -1,6 +1,3 @@
-// TODO Configure State to be saved in R2
-// TODO Move Secrets to dot file so it can be committed safely (add .gitignore)
-
 // TODO Make Default WAF Module and apply to all zones
 
 // ==== runabout.space ====
@@ -107,6 +104,15 @@ resource "cloudflare_record" "tompaulus_com_www" {
   value           = "tompaulus.com"
 }
 
+resource "cloudflare_record" "tompaulus_com_blog" {
+  zone_id         = cloudflare_zone.tompaulus_com.id
+  name            = "blog"
+  type            = "CNAME"
+  proxied         = true
+  value           = cloudflare_argo_tunnel.nuc.cname
+  allow_overwrite = true
+}
+
 // TODO Non Email DNS Records
 
 // TODO Zone Configuration (Like Cache Settings)
@@ -134,6 +140,19 @@ resource "cloudflare_record" "whitestarsystems_com_keybase_verification" {
 }
 
 // ==== whitestar_systems ====
+locals {
+  ws_nuc_services = ["n8n.brickyard", "netbox", "portainer.nuc.brickyard"]
+  ws_router_services = ["home", "woodlandpark-access.brickyard", "woodlandpark-smb.brickyard", "z2m.nuc.brickyard"]
+
+  brickyard_local_ips = [
+    {name: "magnolia", addr: "10.0.10.48"},
+    {name: "nuc", addr: "10.0.10.16"},
+    {name: "restic", addr: "10.0.10.34"},
+    {name: "ubnt", addr: "10.0.1.1"},
+    {name: "woodlandpark", addr: "10.0.10.32"},
+  ]
+}
+
 resource "cloudflare_zone" "whitestar_systems" {
   account_id = local.cf_account_id
   zone       = "whitestar.systems"
@@ -154,7 +173,53 @@ resource "cloudflare_record" "whitestar_systems_keybase_verification" {
   value           = "keybase-site-verification=ZMKzMIfHqDIUV4SrGSCCRP09C0TSada5zNxdosjudGA"
 }
 
-// TODO Non Email DNS Records
+resource "cloudflare_record" "whitestar_systems_nuc_services" {
+  count = length(local.ws_nuc_services)
+  zone_id         = cloudflare_zone.whitestar_systems.id
+  name            = local.ws_nuc_services[count.index]
+  type            = "CNAME"
+  proxied         = true
+  value           = cloudflare_argo_tunnel.nuc.cname
+  allow_overwrite = true
+}
+
+resource "cloudflare_record" "whitestar_systems_router_services" {
+  count = length(local.ws_router_services)
+  zone_id         = cloudflare_zone.whitestar_systems.id
+  name            = local.ws_router_services[count.index]
+  type            = "CNAME"
+  proxied         = true
+  value           = cloudflare_argo_tunnel.router.cname
+  allow_overwrite = true
+}
+
+resource "cloudflare_record" "whitestar_systems_static_r2" {
+  zone_id         = cloudflare_zone.whitestar_systems.id
+  name            = "s"
+  type            = "CNAME"
+  proxied         = true
+  value           = "public.r2.dev"
+  allow_overwrite = true
+}
+
+resource "cloudflare_record" "whitestar_systems_service_directory" {
+  zone_id         = cloudflare_zone.whitestar_systems.id
+  name            = "sd.brickyard"
+  type            = "CNAME"
+  proxied         = true
+  value           = "brickyard-landing.pages.dev"
+  allow_overwrite = true
+}
+
+resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
+  count = length(local.brickyard_local_ips)
+  zone_id         = cloudflare_zone.whitestar_systems.id
+  name            = local.brickyard_local_ips[count.index].name
+  type            = "A"
+  proxied         = false
+  value           = local.brickyard_local_ips[count.index].addr
+  allow_overwrite = true
+}
 
 // TODO Zone Configuration (Like Cache Settings)
 
@@ -162,4 +227,17 @@ resource "cloudflare_record" "whitestar_systems_keybase_verification" {
 
 
 // ==== Zero Trust ====
-// TODO ZT
+resource "cloudflare_argo_tunnel" "nuc" {
+  account_id = locals.cf_account_id
+  name       = "NUC"
+}
+
+resource "cloudflare_argo_tunnel" "magnolia" {
+  account_id = locals.cf_account_id
+  name       = "Magnolia"
+}
+
+resource "cloudflare_argo_tunnel" "router" {
+  account_id = locals.cf_account_id
+  name       = "STTLWASCSG1"
+}

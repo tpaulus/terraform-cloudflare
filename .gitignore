@@ -1,2 +1,2 @@
 .terraform
-credentials.sh
+terraform.tfvars
