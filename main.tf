@@ -110,7 +110,6 @@ resource "cloudflare_record" "tompaulus_com_blog" {
   type            = "CNAME"
   proxied         = true
   value           = local.nuc_argo_tunnel_cname
-  allow_overwrite = true
 }
 
 // TODO Non Email DNS Records
@@ -167,7 +166,6 @@ module "whitestar_systems_email" {
   source = "./modules/cloudflare_email_routing"
 
   zone_id         = cloudflare_zone.whitestar_systems.id
-  allow_overwrite = true
   allowed_senders = "include:_spf.mx.cloudflare.net include:amazonses.com"
 }
 
@@ -185,7 +183,6 @@ resource "cloudflare_record" "whitestar_systems_nuc_services" {
   type            = "CNAME"
   proxied         = true
   value           = local.nuc_argo_tunnel_cname
-  allow_overwrite = true
 }
 
 resource "cloudflare_record" "whitestar_systems_router_services" {
@@ -195,16 +192,6 @@ resource "cloudflare_record" "whitestar_systems_router_services" {
   type            = "CNAME"
   proxied         = true
   value           = local.router_argo_tunnel_cname
-  allow_overwrite = true
-}
-
-resource "cloudflare_record" "whitestar_systems_static_r2" {
-  zone_id         = cloudflare_zone.whitestar_systems.id
-  name            = "s"
-  type            = "CNAME"
-  proxied         = true
-  value           = "public.r2.dev"
-  allow_overwrite = true
 }
 
 resource "cloudflare_record" "whitestar_systems_service_directory" {
@@ -213,7 +200,6 @@ resource "cloudflare_record" "whitestar_systems_service_directory" {
   type            = "CNAME"
   proxied         = true
   value           = "brickyard-landing.pages.dev"
-  allow_overwrite = true
 }
 
 resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
@@ -223,7 +209,6 @@ resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
   type            = "A"
   proxied         = false
   value           = local.brickyard_local_ips[count.index].addr
-  allow_overwrite = true
 }
 
 // TODO Zone Configuration (Like Cache Settings)
