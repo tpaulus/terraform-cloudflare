@@ -138,7 +138,7 @@ resource "cloudflare_record" "whitestarsystems_com_keybase_verification" {
   value           = "keybase-site-verification=m-CHCO8UMok9fCHxS4y7ZhbM7NbvhG8tMMPvKOaHccI"
 }
 
-// ==== whitestar_systems ====
+// ==== whitestar.systems ====
 locals {
   ws_nuc_services = ["n8n.brickyard", "netbox", "portainer.nuc.brickyard"]
   ws_router_services = ["home", "woodlandpark-access.brickyard", "woodlandpark-smb.brickyard", "z2m.nuc.brickyard"]
