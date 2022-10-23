@@ -109,7 +109,7 @@ resource "cloudflare_record" "tompaulus_com_blog" {
   name            = "blog"
   type            = "CNAME"
   proxied         = true
-  value           = cloudflare_argo_tunnel.nuc.cname
+  value           = local.nuc_argo_tunnel_cname
   allow_overwrite = true
 }
 
@@ -151,6 +151,11 @@ locals {
     {name: "ubnt", addr: "10.0.1.1"},
     {name: "woodlandpark", addr: "10.0.10.32"},
   ]
+
+  // Argo Tunnels - Not managed in TF since importing them would lead to recreation
+  magnolia_argo_tunnel_cname = "6af96be1-3135-4e18-a2b9-61e72fc3139a.cfargotunnel.com"
+  nuc_argo_tunnel_cname = "b184e6b5-e638-40cd-8f54-4a356c9cd1b5.cfargotunnel.com"
+  router_argo_tunnel_cname = "4ca02328-8cd1-4f24-bfb4-f59bd32ed651.cfargotunnel.com"
 }
 
 resource "cloudflare_zone" "whitestar_systems" {
@@ -179,7 +184,7 @@ resource "cloudflare_record" "whitestar_systems_nuc_services" {
   name            = local.ws_nuc_services[count.index]
   type            = "CNAME"
   proxied         = true
-  value           = cloudflare_argo_tunnel.nuc.cname
+  value           = local.nuc_argo_tunnel_cname
   allow_overwrite = true
 }
 
@@ -189,7 +194,7 @@ resource "cloudflare_record" "whitestar_systems_router_services" {
   name            = local.ws_router_services[count.index]
   type            = "CNAME"
   proxied         = true
-  value           = cloudflare_argo_tunnel.router.cname
+  value           = local.router_argo_tunnel_cname
   allow_overwrite = true
 }
 
@@ -227,17 +232,4 @@ resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
 
 
 // ==== Zero Trust ====
-resource "cloudflare_argo_tunnel" "nuc" {
-  account_id = locals.cf_account_id
-  name       = "NUC"
-}
-
-resource "cloudflare_argo_tunnel" "magnolia" {
-  account_id = locals.cf_account_id
-  name       = "Magnolia"
-}
-
-resource "cloudflare_argo_tunnel" "router" {
-  account_id = locals.cf_account_id
-  name       = "STTLWASCSG1"
-}
+// TODO Access Policies
