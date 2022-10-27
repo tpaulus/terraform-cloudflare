@@ -205,7 +205,7 @@ resource "cloudflare_record" "whitestar_systems_service_directory" {
 resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
   count = length(local.brickyard_local_ips)
   zone_id         = cloudflare_zone.whitestar_systems.id
-  name            = local.brickyard_local_ips[count.index].name
+  name            = "${local.brickyard_local_ips[count.index].name}.brickyard"
   type            = "A"
   proxied         = false
   value           = local.brickyard_local_ips[count.index].addr
