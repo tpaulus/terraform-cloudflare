@@ -228,8 +228,9 @@ resource "cloudflare_teams_rule" "block_ads" {
   account_id  = local.cf_account_id
   precedence = 10000
   action = "block"
+  enabled = true
   filters = ["dns"]
-  traffic = "any(dns.content_category[*] in {1})"  # https://developers.cloudflare.com/cloudflare-one/policies/filtering/dns-policies/dns-categories/#category-and-subcategory-ids
+  traffic = "any(dns.content_category[*] in {1 66})"  # https://developers.cloudflare.com/cloudflare-one/policies/filtering/dns-policies/dns-categories/#category-and-subcategory-ids
   rule_settings {
     block_page_enabled = false
   }
@@ -241,6 +242,7 @@ resource "cloudflare_teams_rule" "block_content_categories" {
   account_id  = local.cf_account_id
   precedence = 11000
   action = "block"
+  enabled = true
   filters = ["dns"]
   traffic = "any(dns.content_category[*] in {85 162 128 161 177 169 124 170})"  # https://developers.cloudflare.com/cloudflare-one/policies/filtering/dns-policies/dns-categories/#category-and-subcategory-ids
   rule_settings {
@@ -254,6 +256,7 @@ resource "cloudflare_teams_rule" "block_security_risks" {
   account_id  = local.cf_account_id
   precedence = 12000
   action = "block"
+  enabled = true
   filters = ["dns"]
   traffic = "any(dns.security_category[*] in {68 178 80 83 176 175 117 131 134 151 153})"  # https://developers.cloudflare.com/cloudflare-one/policies/filtering/dns-policies/dns-categories/#category-and-subcategory-ids
   rule_settings {
@@ -267,6 +270,7 @@ resource "cloudflare_teams_rule" "block_manual_trackers_and_ads" {
   account_id  = local.cf_account_id
   precedence = 13000
   action = "block"
+  enabled = true
   filters = ["dns"]
   traffic = "any(dns.domains[*] in $534bce67f20a4ac698fc003f6c139767)"
   rule_settings {
@@ -280,6 +284,7 @@ resource "cloudflare_teams_rule" "block_tor" {
   account_id  = local.cf_account_id
   precedence = 14000
   action = "block"
+  enabled = true
   filters = ["dns"]
   traffic = "any(dns.dst.geo.continent[*] == \"T1\")"
   rule_settings {
