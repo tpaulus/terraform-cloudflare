@@ -145,7 +145,7 @@ locals {
 
   brickyard_local_ips = [
     {name: "ubnt", addr: "10.0.1.1"},
-    {name: "protect", addr: "10.0.1.10"},
+    {name: "protect", addr: "10.0.10.10"},
     {name: "magnolia", addr: "10.0.10.48"},
     {name: "nuc", addr: "10.0.10.16"},
     {name: "restic", addr: "10.0.10.34"},
