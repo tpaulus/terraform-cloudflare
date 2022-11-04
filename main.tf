@@ -222,11 +222,25 @@ resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
 
 
 // ==== Gateway Policies ====
+resource "cloudflare_teams_rule" "allowed" {
+  name = "Allowed"
+  description = ""
+  account_id  = local.cf_account_id
+  precedence = 10000
+  action = "block"
+  enabled = true
+  filters = ["dns"]
+  traffic = "any(dns.domains[*] in $b880f23bb11a45c29e8149401dd67592)"  # https://developers.cloudflare.com/cloudflare-one/policies/filtering/dns-policies/dns-categories/#category-and-subcategory-ids
+  rule_settings {
+    block_page_enabled = false
+  }
+}
+
 resource "cloudflare_teams_rule" "block_ads" {
   name = "Block Ads"
   description = ""
   account_id  = local.cf_account_id
-  precedence = 10000
+  precedence = 11000
   action = "block"
   enabled = true
   filters = ["dns"]
@@ -240,7 +254,7 @@ resource "cloudflare_teams_rule" "block_content_categories" {
   name = "Block Content Categories"
   description = ""
   account_id  = local.cf_account_id
-  precedence = 11000
+  precedence = 12000
   action = "block"
   enabled = true
   filters = ["dns"]
@@ -254,7 +268,7 @@ resource "cloudflare_teams_rule" "block_security_risks" {
   name = "Block Security Risks"
   description = ""
   account_id  = local.cf_account_id
-  precedence = 12000
+  precedence = 13000
   action = "block"
   enabled = true
   filters = ["dns"]
@@ -268,7 +282,7 @@ resource "cloudflare_teams_rule" "block_manual_trackers_and_ads" {
   name = "Block Manual Trackers & Ads"
   description = ""
   account_id  = local.cf_account_id
-  precedence = 13000
+  precedence = 14000
   action = "block"
   enabled = true
   filters = ["dns"]
@@ -282,7 +296,7 @@ resource "cloudflare_teams_rule" "block_tor" {
   name = "Block TOR"
   description = ""
   account_id  = local.cf_account_id
-  precedence = 14000
+  precedence = 15000
   action = "block"
   enabled = true
   filters = ["dns"]
