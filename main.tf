@@ -227,7 +227,7 @@ resource "cloudflare_teams_rule" "allowed" {
   description = ""
   account_id  = local.cf_account_id
   precedence = 10000
-  action = "block"
+  action = "allow"
   enabled = true
   filters = ["dns"]
   traffic = "any(dns.domains[*] in $b880f23bb11a45c29e8149401dd67592)"  # https://developers.cloudflare.com/cloudflare-one/policies/filtering/dns-policies/dns-categories/#category-and-subcategory-ids
