@@ -177,6 +177,13 @@ resource "cloudflare_record" "whitestar_systems_keybase_verification" {
   value           = "keybase-site-verification=ZMKzMIfHqDIUV4SrGSCCRP09C0TSada5zNxdosjudGA"
 }
 
+resource "cloudflare_record" "whitestar_systems_github_verification" {
+  zone_id         = cloudflare_zone.whitestar_systems.id
+  name            = "_github-challenge-ws-systems-org"
+  type            = "TXT"
+  value           = "5a889d68b4"
+}
+
 resource "cloudflare_record" "whitestar_systems_nuc_services" {
   count = length(local.ws_nuc_services)
   zone_id         = cloudflare_zone.whitestar_systems.id
