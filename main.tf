@@ -230,7 +230,7 @@ resource "cloudflare_teams_rule" "allowed" {
   action = "allow"
   enabled = true
   filters = ["dns"]
-  traffic = "any(dns.domains[*] in $b880f23bb11a45c29e8149401dd67592)"  # https://developers.cloudflare.com/cloudflare-one/policies/filtering/dns-policies/dns-categories/#category-and-subcategory-ids
+  traffic = "any(dns.domains[*] in $b880f23bb11a45c29e8149401dd67592)"
   rule_settings {
     block_page_enabled = false
   }
