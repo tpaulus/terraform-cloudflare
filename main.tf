@@ -141,6 +141,7 @@ resource "cloudflare_record" "whitestarsystems_com_keybase_verification" {
 // ==== whitestar.systems ====
 locals {
   ws_nuc_services = ["n8n.brickyard", "netbox", "portainer.nuc.brickyard"]
+  ws_magnolia_services = ["consul.brickyard", "nomad.brickyard"]
   ws_router_services = ["home", "woodlandpark-access.brickyard", "woodlandpark-smb.brickyard", "z2m.nuc.brickyard"]
 
   brickyard_local_ips = [
@@ -193,6 +194,15 @@ resource "cloudflare_record" "whitestar_systems_nuc_services" {
   value           = local.nuc_argo_tunnel_cname
 }
 
+resource "cloudflare_record" "whitestar_systems_magnolia_services" {
+  count = length(local.ws_magnolia_services)
+  zone_id         = cloudflare_zone.whitestar_systems.id
+  name            = local.ws_nuc_services[count.index]
+  type            = "CNAME"
+  proxied         = true
+  value           = local.magnolia_argo_tunnel_cname
+}
+
 resource "cloudflare_record" "whitestar_systems_router_services" {
   count = length(local.ws_router_services)
   zone_id         = cloudflare_zone.whitestar_systems.id
@@ -218,6 +228,7 @@ resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
   proxied         = false
   value           = local.brickyard_local_ips[count.index].addr
 }
+
 
 // TODO Zone Configuration (Like Cache Settings)
 
