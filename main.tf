@@ -109,7 +109,7 @@ resource "cloudflare_record" "tompaulus_com_blog" {
   name            = "blog"
   type            = "CNAME"
   proxied         = true
-  value           = local.nuc_argo_tunnel_cname
+  value           = local.magnolia_argo_tunnel_cname
 }
 
 // TODO Non Email DNS Records
