@@ -137,7 +137,7 @@ resource "cloudflare_record" "whitestarsystems_com_keybase_verification" {
 
 // ==== whitestar.systems ====
 locals {
-  ws_n3d_fqdn = "n3d.brickyard.whitestar.system"
+  ws_n3d_fqdn = "n3d.brickyard.whitestar.systems"
 
   ws_n3d_services = ["netbox", "m3d.brickyard",  "consul.brickyard", "nomad.brickyard", "grafana.brickyard", "prometheus.brickyard", "alertmanager.brickyard"]
   ws_router_services = ["home", "woodlandpark-access.brickyard", "woodlandpark-smb.brickyard"]
