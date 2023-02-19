@@ -223,7 +223,6 @@ resource "cloudflare_record" "whitestar_systems_consul_srv" {
   zone_id         = cloudflare_zone.whitestar_systems.id
   name            = "_server._tcp.consul.brickyard.whitestar.systems"
   type            = "SRV"
-  allow_overwrite = true
 
   data {
     name     = "consul.brickyard.whitestar.systems"
