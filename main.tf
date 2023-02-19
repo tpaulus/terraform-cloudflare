@@ -232,7 +232,7 @@ resource "cloudflare_record" "whitestar_systems_consul_srv" {
     priority = 1
     weight   = 10
     port     = 8500
-    target   = local.brickyard_local_ips[count.index].addr
+    target   = local.ws_consul_servers[count.index]
   }
 }
 
