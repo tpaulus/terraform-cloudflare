@@ -109,14 +109,12 @@ resource "cloudflare_record" "tompaulus_com_blog" {
   name            = "blog"
   type            = "CNAME"
   proxied         = true
-  value           = local.magnolia_argo_tunnel_cname
+  value           = local.ws_n3d_fqdn
+  allow_overwrite = true
 }
-
-// TODO Non Email DNS Records
 
 // TODO Zone Configuration (Like Cache Settings)
 
-// TODO Page Rules
 
 // ==== whitestarsystems.com ====
 resource "cloudflare_zone" "whitestarsystems_com" {
@@ -140,22 +138,20 @@ resource "cloudflare_record" "whitestarsystems_com_keybase_verification" {
 
 // ==== whitestar.systems ====
 locals {
-  ws_nuc_services = ["n8n.brickyard", "netbox", "portainer.nuc.brickyard"]
-  ws_magnolia_services = ["consul.brickyard", "nomad.brickyard"]
-  ws_router_services = ["home", "woodlandpark-access.brickyard", "woodlandpark-smb.brickyard", "z2m.nuc.brickyard"]
+  ws_n3d_fqdn = "n3d.brickyard.whitestar.system"
+
+  ws_n3d_services = ["netbox", "m3d.brickyard",  "consul.brickyard", "nomad.brickyard", "grafana.brickyard", "prometheus.brickyard", "alertmanager.brickyard"]
+  ws_router_services = ["home", "woodlandpark-access.brickyard", "woodlandpark-smb.brickyard"]
 
   brickyard_local_ips = [
     {name: "ubnt", addr: "10.0.1.1"},
     {name: "protect", addr: "10.0.10.10"},
-    {name: "magnolia", addr: "10.0.10.48"},
-    {name: "nuc", addr: "10.0.10.16"},
-    {name: "restic", addr: "10.0.10.34"},
+    {name: "broadmoor", addr: "10.0.10.16"},
     {name: "woodlandpark", addr: "10.0.10.32"},
+    {name: "roosevelt", addr: "10.0.10.64"},
+    {name: "ravenna", addr: "10.0.10.80"},
   ]
 
-  // Argo Tunnels - Not managed in TF since importing them would lead to recreation
-  magnolia_argo_tunnel_cname = "6af96be1-3135-4e18-a2b9-61e72fc3139a.cfargotunnel.com"
-  nuc_argo_tunnel_cname = "b184e6b5-e638-40cd-8f54-4a356c9cd1b5.cfargotunnel.com"
   router_argo_tunnel_cname = "4ca02328-8cd1-4f24-bfb4-f59bd32ed651.cfargotunnel.com"
 }
 
@@ -185,23 +181,16 @@ resource "cloudflare_record" "whitestar_systems_github_verification" {
   value           = "5a889d68b4"
 }
 
-resource "cloudflare_record" "whitestar_systems_nuc_services" {
-  count = length(local.ws_nuc_services)
+resource "cloudflare_record" "whitestar_systems_n3d_services" {
+  count = length(local.ws_n3d_services)
   zone_id         = cloudflare_zone.whitestar_systems.id
-  name            = local.ws_nuc_services[count.index]
+  name            = local.ws_n3d_services[count.index]
   type            = "CNAME"
   proxied         = true
-  value           = local.nuc_argo_tunnel_cname
+  value           = local.ws_n3d_fqdn
+  allow_overwrite = true
 }
 
-resource "cloudflare_record" "whitestar_systems_magnolia_services" {
-  count = length(local.ws_magnolia_services)
-  zone_id         = cloudflare_zone.whitestar_systems.id
-  name            = local.ws_nuc_services[count.index]
-  type            = "CNAME"
-  proxied         = true
-  value           = local.magnolia_argo_tunnel_cname
-}
 
 resource "cloudflare_record" "whitestar_systems_router_services" {
   count = length(local.ws_router_services)
@@ -227,12 +216,11 @@ resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
   type            = "A"
   proxied         = false
   value           = local.brickyard_local_ips[count.index].addr
+  allow_overwrite = true
 }
 
 
 // TODO Zone Configuration (Like Cache Settings)
-
-// TODO Page Rules
 
 
 // ==== Zero Trust ====
