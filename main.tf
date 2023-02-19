@@ -218,15 +218,15 @@ resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
   value           = local.brickyard_local_ips[count.index].addr
 }
 
-resource "cloudflare_record" "client_imap" {
+resource "cloudflare_record" "whitestar_systems_consul_srv" {
   count           = length(local.ws_consul_servers)
-  zone_id         = var.zone_id
+  zone_id         = cloudflare_zone.whitestar_systems.id
   name            = "consul.brickyard"
   type            = "SRV"
   allow_overwrite = true
 
   data {
-    name     = var.fqdn
+    name     = cloudflare_zone.whitestar_systems.zone
     service  = "_server"
     proto    = "_tcp"
     priority = 1
