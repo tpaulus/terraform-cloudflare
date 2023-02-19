@@ -221,7 +221,7 @@ resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
 resource "cloudflare_record" "whitestar_systems_consul_srv" {
   count           = length(local.ws_consul_servers)
   zone_id         = cloudflare_zone.whitestar_systems.id
-  name            = "_server._tcp"
+  name            = "_server._tcp.consul.brickyard.whitestar.systems"
   type            = "SRV"
   allow_overwrite = true
 
