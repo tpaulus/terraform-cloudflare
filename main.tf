@@ -151,8 +151,6 @@ locals {
     {name: "ravenna", addr: "10.0.10.80"},
   ]
 
-  ws_consul_servers = ["woodlandpark.brickyard.whitestar.systems", "roosevelt.brickyard.whitestar.systems", "ravenna.brickyard.whitestar.systems"]
-
   router_argo_tunnel_cname = "4ca02328-8cd1-4f24-bfb4-f59bd32ed651.cfargotunnel.com"
 }
 
@@ -216,23 +214,6 @@ resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
   type            = "A"
   proxied         = false
   value           = local.brickyard_local_ips[count.index].addr
-}
-
-resource "cloudflare_record" "whitestar_systems_consul_srv" {
-  count           = length(local.ws_consul_servers)
-  zone_id         = cloudflare_zone.whitestar_systems.id
-  name            = "_server._tcp.consul.brickyard.whitestar.systems"
-  type            = "SRV"
-
-  data {
-    name     = "consul.brickyard.whitestar.systems"
-    service  = "_server"
-    proto    = "_tcp"
-    priority = 1
-    weight   = 10
-    port     = 8500
-    target   = local.ws_consul_servers[count.index]
-  }
 }
 
 
