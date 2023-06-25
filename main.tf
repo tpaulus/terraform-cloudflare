@@ -216,6 +216,14 @@ resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
   value           = local.brickyard_local_ips[count.index].addr
 }
 
+resource "cloudflare_record" "whitestar_brickyard_unifi_controller" {
+  zone_id = cloudflare_zone.whitestar_systems.id
+  name    = "unifi-controller.brickyard"
+  type    = "A"
+  proxied = false
+  value   = "172.30.224.33"
+  ttl     = "30"
+}
 
 // TODO Zone Configuration (Like Cache Settings)
 
