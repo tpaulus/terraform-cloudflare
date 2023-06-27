@@ -139,11 +139,10 @@ resource "cloudflare_record" "whitestarsystems_com_keybase_verification" {
 locals {
   ws_n3d_fqdn = "n3d.brickyard.whitestar.systems"
 
-  ws_n3d_services = ["netbox", "consul.brickyard", "nomad.brickyard", "grafana.brickyard", "prometheus.brickyard", "alertmanager.brickyard", "home", "z2m.brickyard"]
+  ws_n3d_services = ["netbox", "consul.brickyard", "nomad.brickyard", "grafana.brickyard", "prometheus.brickyard", "alertmanager.brickyard", "home", "z2m.brickyard", "ubnt.brickyard"]
   ws_router_services = ["woodlandpark-access.brickyard", "woodlandpark-smb.brickyard"]
 
   brickyard_local_ips = [
-    {name: "ubnt", addr: "10.0.1.1"},
     {name: "protect", addr: "10.0.10.10"},
     {name: "broadmoor", addr: "10.0.10.16"},
     {name: "woodlandpark", addr: "10.0.10.32"},
@@ -219,9 +218,9 @@ resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
 resource "cloudflare_record" "whitestar_brickyard_unifi_controller" {
   zone_id = cloudflare_zone.whitestar_systems.id
   name    = "unifi-controller.brickyard"
-  type    = "A"
+  type    = "CNAME"
   proxied = false
-  value   = "172.30.224.33"
+  value   = "unifi.service.seaview.consul"
   ttl     = "30"
 }
 
