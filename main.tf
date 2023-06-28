@@ -139,8 +139,7 @@ resource "cloudflare_record" "whitestarsystems_com_keybase_verification" {
 locals {
   ws_n3d_fqdn = "n3d.brickyard.whitestar.systems"
 
-  ws_n3d_services = ["netbox", "consul.brickyard", "nomad.brickyard", "grafana.brickyard", "prometheus.brickyard", "alertmanager.brickyard", "home", "z2m.brickyard", "ubnt.brickyard"]
-  ws_router_services = ["woodlandpark-access.brickyard", "woodlandpark-smb.brickyard"]
+  ws_n3d_services = ["netbox", "consul.brickyard", "nomad.brickyard", "grafana.brickyard", "prometheus.brickyard", "alertmanager.brickyard", "home", "z2m.brickyard"]
 
   brickyard_local_ips = [
     {name: "protect", addr: "10.0.10.10"},
@@ -148,9 +147,8 @@ locals {
     {name: "woodlandpark", addr: "10.0.10.32"},
     {name: "roosevelt", addr: "10.0.10.64"},
     {name: "ravenna", addr: "10.0.10.80"},
+    {name: "unifi-controller", addr: "10.0.1.6"}
   ]
-
-  router_argo_tunnel_cname = "4ca02328-8cd1-4f24-bfb4-f59bd32ed651.cfargotunnel.com"
 }
 
 resource "cloudflare_zone" "whitestar_systems" {
@@ -188,16 +186,6 @@ resource "cloudflare_record" "whitestar_systems_n3d_services" {
   value           = local.ws_n3d_fqdn
 }
 
-
-resource "cloudflare_record" "whitestar_systems_router_services" {
-  count = length(local.ws_router_services)
-  zone_id         = cloudflare_zone.whitestar_systems.id
-  name            = local.ws_router_services[count.index]
-  type            = "CNAME"
-  proxied         = true
-  value           = local.router_argo_tunnel_cname
-}
-
 resource "cloudflare_record" "whitestar_systems_service_directory" {
   zone_id         = cloudflare_zone.whitestar_systems.id
   name            = "sd.brickyard"
@@ -215,12 +203,12 @@ resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
   value           = local.brickyard_local_ips[count.index].addr
 }
 
-resource "cloudflare_record" "whitestar_brickyard_unifi_controller" {
+resource "cloudflare_record" "whitestar_brickyard_ubnt" {
   zone_id = cloudflare_zone.whitestar_systems.id
-  name    = "unifi-controller.brickyard"
+  name    = "ubnt.brickyard"
   type    = "CNAME"
   proxied = false
-  value   = "unifi.service.seaview.consul"
+  value   = "unifi-controller.brickyard"
   ttl     = "30"
 }
 
