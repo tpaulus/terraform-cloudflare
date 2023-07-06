@@ -208,7 +208,7 @@ resource "cloudflare_record" "whitestar_brickyard_ubnt" {
   name    = "ubnt.brickyard"
   type    = "CNAME"
   proxied = false
-  value   = "unifi-controller.brickyard"
+  value   = "unifi-controller.brickyard.whitestar.systems"
   ttl     = "30"
 }
 
