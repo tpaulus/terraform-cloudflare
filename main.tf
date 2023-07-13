@@ -256,7 +256,7 @@ resource "cloudflare_teams_rule" "block_content_categories" {
   action = "block"
   enabled = true
   filters = ["dns"]
-  traffic = "any(dns.content_category[*] in {85 162 170})"  # https://developers.cloudflare.com/cloudflare-one/policies/filtering/dns-policies/dns-categories/#category-and-subcategory-ids
+  traffic = "any(dns.content_category[*] in {85 162 128 161 177 169 124 170})"  # https://developers.cloudflare.com/cloudflare-one/policies/filtering/dns-policies/dns-categories/#category-and-subcategory-ids
   rule_settings {
     block_page_enabled = true
   }
