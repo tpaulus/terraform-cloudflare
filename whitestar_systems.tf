@@ -16,6 +16,7 @@ locals {
     {name: "ravenna", addr: "10.0.199.2"},
     {name: "roosevelt", addr: "10.0.199.3"},
     {name: "woodlandpark", addr: "10.0.199.4"},
+    {name: "beaconhill", addr: "10.0.199.5"}
   ]
 }
 
