@@ -1,7 +1,7 @@
 locals {
   ws_n3d_fqdn = "n3d.brickyard.whitestar.systems"
 
-  ws_n3d_services = ["netbox", "consul.brickyard", "nomad.brickyard", "grafana.brickyard", "prometheus.brickyard", "alertmanager.brickyard", "home", "z2m.brickyard"]
+  ws_n3d_services = ["netbox", "consul.brickyard", "nomad.brickyard", "grafana.brickyard", "prometheus.brickyard", "alertmanager.brickyard", "home"]
 
   brickyard_local_ips = [
     {name: "protect", addr: "10.0.10.10"},
