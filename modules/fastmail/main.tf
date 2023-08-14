@@ -49,7 +49,7 @@ resource "cloudflare_record" "dmarc" {
   zone_id         = var.zone_id
   name            = "_dmarc"
   type            = "TXT"
-  value           = "v=DMARC1; p=quarantine; rua=mailto:dmarcreports@whitestar.systems"
+  value           = "v=DMARC1; p=quarantine; rua=${var.dmarc_report_address}"
   allow_overwrite = var.allow_overwrite
 }
 

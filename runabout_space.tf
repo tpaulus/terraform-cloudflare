@@ -8,6 +8,8 @@ module "runabout_space_email" {
 
   zone_id = cloudflare_zone.runabout_space.id
   fqdn    = cloudflare_zone.runabout_space.zone
+
+  dmarc_report_address = "mailto:58a029c6907a487e89a1bbc2830bf93d@dmarc-reports.cloudflare.net"
 }
 
 resource "cloudflare_record" "runabout_space_keybase_verification" {

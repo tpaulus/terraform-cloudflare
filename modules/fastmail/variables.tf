@@ -16,6 +16,12 @@ variable "allowed_senders" {
   default     = "include:spf.messagingengine.com"
 }
 
+variable "dmarc_report_address" {
+  description = "DMARC Report Adress"
+  type        = string
+  default     = "mailto:dmarcreports@whitestar.systems"
+}
+
 variable "create_client_configuration_records" {
   description = "If Client Configuration SRV Records should be created"
   type        = bool

@@ -11,6 +11,7 @@ module "tompaulus_com_email" {
   create_client_configuration_records = true
   create_wildcard_mx_records          = true
   allowed_senders                     = "include:spf.messagingengine.com include:amazonses.com"
+  dmarc_report_address                = "mailto:3f08cb85c9d54864871c1d8351cf31e6@dmarc-reports.cloudflare.net"
 }
 
 module "tompaulus_com_ses_dns" {

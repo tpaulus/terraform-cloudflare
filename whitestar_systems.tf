@@ -90,4 +90,12 @@ resource "cloudflare_record" "whitestar_brickyard_ubnt" {
   ttl     = "30"
 }
 
+resource "cloudflare_record" "dmarc" {
+  zone_id         = cloudflare_zone.whitestar_systems.id
+  name            = "_dmarc"
+  type            = "TXT"
+  value           = "v=DMARC1; p=quarantine; rua=mailto:64203f8a3e304420b20686d30874ffc9@dmarc-reports.cloudflare.net"
+  allow_overwrite = true
+}
+
 // TODO Zone Configuration (Like Cache Settings)
