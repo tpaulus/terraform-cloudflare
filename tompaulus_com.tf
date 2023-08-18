@@ -30,34 +30,34 @@ module "tompaulus_com_ses_dns" {
 }
 
 resource "cloudflare_record" "tompaulus_com_keybase_verification" {
-  zone_id         = cloudflare_zone.tompaulus_com.id
-  name            = "@"
-  type            = "TXT"
-  value           = "keybase-site-verification=ANVrHna38pR4HiCmhXorD3QPw0bqpsqIGKtDvNLTtwA"
+  zone_id = cloudflare_zone.tompaulus_com.id
+  name    = "@"
+  type    = "TXT"
+  value   = "keybase-site-verification=ANVrHna38pR4HiCmhXorD3QPw0bqpsqIGKtDvNLTtwA"
 }
 
 resource "cloudflare_record" "tompaulus_com_root" {
-  zone_id         = cloudflare_zone.tompaulus_com.id
-  name            = "@"
-  type            = "CNAME"
-  proxied         = true
-  value           = "tom-www.pages.dev"
+  zone_id = cloudflare_zone.tompaulus_com.id
+  name    = "@"
+  type    = "CNAME"
+  proxied = true
+  value   = "tom-www.pages.dev"
 }
 
 resource "cloudflare_record" "tompaulus_com_www" {
-  zone_id         = cloudflare_zone.tompaulus_com.id
-  name            = "www"
-  type            = "CNAME"
-  proxied         = true
-  value           = "tompaulus.com"
+  zone_id = cloudflare_zone.tompaulus_com.id
+  name    = "www"
+  type    = "CNAME"
+  proxied = true
+  value   = "tompaulus.com"
 }
 
 resource "cloudflare_record" "tompaulus_com_blog" {
-  zone_id         = cloudflare_zone.tompaulus_com.id
-  name            = "blog"
-  type            = "CNAME"
-  proxied         = true
-  value           = local.ws_n3d_fqdn
+  zone_id = cloudflare_zone.tompaulus_com.id
+  name    = "blog"
+  type    = "CNAME"
+  proxied = true
+  value   = cloudflare_load_balancer.n3d_lb.name
 }
 
 // TODO Zone Configuration (Like Cache Settings)
