@@ -55,7 +55,6 @@ resource "cloudflare_record" "whitestar_systems_n3d_services" {
   type            = "CNAME"
   proxied         = true
   value           = local.ws_n3d_fqdn
-  allow_overwrite = true
 }
 
 resource "cloudflare_record" "whitestar_systems_service_directory" {
@@ -74,7 +73,6 @@ resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
   type            = "A"
   proxied         = false
   value           = each.value
-  allow_overwrite = true
 }
 
 resource "cloudflare_record" "whitestar_systems_ipmi_ips" {
@@ -85,7 +83,6 @@ resource "cloudflare_record" "whitestar_systems_ipmi_ips" {
   type            = "A"
   proxied         = false
   value           = each.value
-  allow_overwrite = true
 }
 
 resource "cloudflare_record" "whitestar_brickyard_ubnt" {
