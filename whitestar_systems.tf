@@ -3,23 +3,22 @@ locals {
 
   ws_n3d_services = ["netbox", "consul.brickyard", "nomad.brickyard", "grafana.brickyard", "prometheus.brickyard", "alertmanager.brickyard", "home"]
 
-  brickyard_local_ips = [
-    {name: "protect", addr: "10.0.10.10"},
-    {name: "broadmoor", addr: "10.0.10.16"},
-    {name: "laurelhurst", addr: "10.0.10.24"},
-    {name: "woodlandpark", addr: "10.0.10.32"},
-    {name: "roosevelt", addr: "10.0.10.64"},
-    {name: "ravenna", addr: "10.0.10.80"},
-    {name: "unifi-controller", addr: "10.0.1.6"}
-  ]
+  brickyard_local_ips = {
+    "protect": "10.0.10.10",
+    "laurelhurst": "10.0.10.24",
+    "woodlandpark": "10.0.10.32",
+    "roosevelt": "10.0.10.64",
+    "ravenna": "10.0.10.80",
+    "unifi-controller": "10.0.1.6",
+  }
 
-  ipmi_addresses = [
-    {name: "ravenna", addr: "10.0.199.2"},
-    {name: "roosevelt", addr: "10.0.199.3"},
-    {name: "woodlandpark", addr: "10.0.199.4"},
-    {name: "beaconhill", addr: "10.0.199.5"},
-    {name: "laurelhurst", addr: "10.0.199.6"},
-  ]
+  ipmi_addresses = {
+    "ravenna": "10.0.199.2",
+    "roosevelt": "10.0.199.3",
+    "woodlandpark": "10.0.199.4",
+    "beaconhill": "10.0.199.5",
+    "laurelhurst": "10.0.199.6",
+  }
 }
 
 resource "cloudflare_zone" "whitestar_systems" {
@@ -49,12 +48,14 @@ resource "cloudflare_record" "whitestar_systems_github_verification" {
 }
 
 resource "cloudflare_record" "whitestar_systems_n3d_services" {
-  count = length(local.ws_n3d_services)
+  for_each = toset(local.ws_n3d_services)
+  
   zone_id         = cloudflare_zone.whitestar_systems.id
-  name            = local.ws_n3d_services[count.index]
+  name            = each.key
   type            = "CNAME"
   proxied         = true
   value           = local.ws_n3d_fqdn
+  allow_overwrite = true
 }
 
 resource "cloudflare_record" "whitestar_systems_service_directory" {
@@ -66,21 +67,25 @@ resource "cloudflare_record" "whitestar_systems_service_directory" {
 }
 
 resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
-  count = length(local.brickyard_local_ips)
+  for_each = local.brickyard_local_ips
+
   zone_id         = cloudflare_zone.whitestar_systems.id
-  name            = "${local.brickyard_local_ips[count.index].name}.brickyard"
+  name            = "${each.key}.brickyard"
   type            = "A"
   proxied         = false
-  value           = local.brickyard_local_ips[count.index].addr
+  value           = each.value
+  allow_overwrite = true
 }
 
 resource "cloudflare_record" "whitestar_systems_ipmi_ips" {
-  count = length(local.ipmi_addresses)
+  for_each = local.ipmi_addresses
+
   zone_id         = cloudflare_zone.whitestar_systems.id
-  name            = "${local.ipmi_addresses[count.index].name}.brickyard.ipmi"
+  name            = "${each.key}.brickyard.ipmi"
   type            = "A"
   proxied         = false
-  value           = local.ipmi_addresses[count.index].addr
+  value           = each.value
+  allow_overwrite = true
 }
 
 resource "cloudflare_record" "whitestar_brickyard_ubnt" {
@@ -97,7 +102,6 @@ resource "cloudflare_record" "dmarc" {
   name            = "_dmarc"
   type            = "TXT"
   value           = "v=DMARC1; p=quarantine; rua=mailto:64203f8a3e304420b20686d30874ffc9@dmarc-reports.cloudflare.net"
-  allow_overwrite = true
 }
 
 // TODO Zone Configuration (Like Cache Settings)
