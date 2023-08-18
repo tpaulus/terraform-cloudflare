@@ -6,6 +6,7 @@ locals {
   brickyard_local_ips = [
     {name: "protect", addr: "10.0.10.10"},
     {name: "broadmoor", addr: "10.0.10.16"},
+    {name: "laurelhurst", addr: "10.0.10.24"},
     {name: "woodlandpark", addr: "10.0.10.32"},
     {name: "roosevelt", addr: "10.0.10.64"},
     {name: "ravenna", addr: "10.0.10.80"},
@@ -16,7 +17,8 @@ locals {
     {name: "ravenna", addr: "10.0.199.2"},
     {name: "roosevelt", addr: "10.0.199.3"},
     {name: "woodlandpark", addr: "10.0.199.4"},
-    {name: "beaconhill", addr: "10.0.199.5"}
+    {name: "beaconhill", addr: "10.0.199.5"},
+    {name: "laurelhurst", addr: "10.0.199.6"},
   ]
 }
 
