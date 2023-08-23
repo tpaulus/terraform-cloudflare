@@ -14,17 +14,6 @@ resource "cloudflare_teams_rule" "allowed" {
   traffic     = "any(dns.domains[*] in $b880f23bb11a45c29e8149401dd67592)"
 }
 
-resource "cloudflare_teams_rule" "block_ads" {
-  name        = "Block Ads"
-  description = ""
-  account_id  = local.cf_account_id
-  precedence  = 11000
-  action      = "block"
-  enabled     = true
-  filters     = ["dns"]
-  traffic     = "any(dns.content_category[*] in {1 66})" # https://developers.cloudflare.com/cloudflare-one/policies/filtering/dns-policies/dns-categories/#category-and-subcategory-ids
-}
-
 resource "cloudflare_teams_rule" "block_content_categories" {
   name        = "Block Content Categories"
   description = ""
@@ -47,7 +36,7 @@ resource "cloudflare_teams_rule" "block_security_risks" {
   action      = "block"
   enabled     = true
   filters     = ["dns"]
-  traffic     = "any(dns.security_category[*] in {68 178 80 83 176 175 117 131 134 151 153})" # https://developers.cloudflare.com/cloudflare-one/policies/filtering/dns-policies/dns-categories/#category-and-subcategory-ids
+  traffic     = "any(dns.security_category[*] in {178 80 83 176 175 117 131 134 151 153})" # https://developers.cloudflare.com/cloudflare-one/policies/filtering/dns-policies/dns-categories/#category-and-subcategory-ids
   rule_settings {
     block_page_enabled = true
   }
