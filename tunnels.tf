@@ -5,7 +5,7 @@ resource "random_id" "brickyard_warp_tunnel_secret" {
 resource "cloudflare_tunnel" "brickyard_warp_tunnel" {
   account_id = local.cf_account_id
   name       = "brickyard-warp"
-  secret     = random_id.tunnel_secret.b64_std
+  secret     = random_id.brickyard_warp_tunnel_secret.b64_std
 }
 
 resource "nomad_variable" "brickyard_warp_tunnel" {
