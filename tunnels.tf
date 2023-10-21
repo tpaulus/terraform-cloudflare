@@ -15,7 +15,7 @@ resource "nomad_variable" "brickyard_warp_tunnel" {
   }
 }
 
-resource "cloudflare_tunnel_virtual_network" "seaview-vnet" {
+resource "cloudflare_tunnel_virtual_network" "seaview_vnet" {
   account_id = local.cf_account_id
   name = "seaview"
   comment = "Seaview Network"
@@ -26,5 +26,5 @@ resource "cloudflare_tunnel_route" "seaview_ip" {
   tunnel_id          = cloudflare_tunnel.brickyard_warp_tunnel.id
   network            = "10.0.0.0/8"
   comment            = "Home Network Route"
-  virtual_network_id = cloudflare_tunnel_virtual_network.seaview_ip.id
+  virtual_network_id = cloudflare_tunnel_virtual_network.seaview_vnet.id
 }
