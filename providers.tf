@@ -5,11 +5,12 @@ terraform {
       version = "4.17.0"
     }
     nomad = {
-      source = "hashicorp/nomad"
+      source  = "hashicorp/nomad"
       version = "2.0.0"
     }
     random = {
-      source = "hashicorp/random"
+      source  = "hashicorp/random"
+      version = "3.5.1"
     }
   }
 }
