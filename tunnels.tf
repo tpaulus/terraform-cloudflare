@@ -13,6 +13,6 @@ resource "nomad_variable" "brickyard_warp_tunnel" {
   items = {
     AccountTag = local.cf_account_id
     TunnelID = cloudflare_tunnel.brickyard_warp_tunnel.id
-    TunnelSecret = cloudflare_tunnel.brickyard_warp_tunnel.tunnel_token
+    TunnelSecret = random_id.brickyard_warp_tunnel_secret.b64_std
   }
 }
