@@ -10,6 +10,12 @@ locals {
     "unifi-controller" : "10.0.1.6",
   }
 
+  k3s_primaries = [
+    "10.0.10.24",
+    "10.0.10.64",
+    "10.0.10.80"
+  ]
+
   ipmi_addresses = {
     "ravenna" : "10.0.199.2",
     "roosevelt" : "10.0.199.3",
@@ -97,6 +103,16 @@ resource "cloudflare_record" "dmarc" {
   name    = "_dmarc"
   type    = "TXT"
   value   = "v=DMARC1; p=quarantine; rua=mailto:64203f8a3e304420b20686d30874ffc9@dmarc-reports.cloudflare.net"
+}
+
+resource "cloudflare_record" "k3s_primaries" {
+  for_each = toset(local.k3s_primaries)
+
+  zone_id = cloudflare_zone.whitestar_systems.id
+  name    = "k3s.brickyard"
+  type    = "A"
+  proxied = false
+  value   = each.key
 }
 
 resource "cloudflare_argo" "whitestar_systems_argo" {
