@@ -115,6 +115,16 @@ resource "cloudflare_record" "k3s_primaries" {
   value   = each.key
 }
 
+resource "cloudflare_record" "k3s_ingress" {
+  for_each = toset(local.k3s_primaries)
+
+  zone_id = cloudflare_zone.whitestar_systems.id
+  name    = "*.k3s.brickyard"
+  type    = "A"
+  proxied = false
+  value   = each.key
+}
+
 resource "cloudflare_argo" "whitestar_systems_argo" {
   smart_routing  = "on"
   tiered_caching = "on"
