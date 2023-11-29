@@ -120,7 +120,7 @@ resource "cloudflare_record" "k3s_ingress" {
   name    = "*.ing.k3s.brickyard"
   type    = "A"
   proxied = false
-  value   = "10.0.30.0"
+  value   = "10.30.0.0"
 }
 
 resource "cloudflare_argo" "whitestar_systems_argo" {
