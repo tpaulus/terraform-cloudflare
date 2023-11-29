@@ -116,13 +116,11 @@ resource "cloudflare_record" "k3s_primaries" {
 }
 
 resource "cloudflare_record" "k3s_ingress" {
-  for_each = toset(local.k3s_primaries)
-
   zone_id = cloudflare_zone.whitestar_systems.id
-  name    = "*.k3s.brickyard"
+  name    = "*.ing.k3s.brickyard"
   type    = "A"
   proxied = false
-  value   = each.key
+  value   = "10.0.30.0"
 }
 
 resource "cloudflare_argo" "whitestar_systems_argo" {
