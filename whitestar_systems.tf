@@ -123,6 +123,15 @@ resource "cloudflare_record" "k3s_ingress" {
   value   = "10.30.0.0"
 }
 
+
+resource "cloudflare_record" "brickyard_vlmcsd" {
+  zone_id = cloudflare_zone.whitestar_systems.id
+  name    = "vlmcsd.brickyard"
+  type    = "A"
+  proxied = false
+  value   = "10.30.0.1"
+}
+
 resource "cloudflare_argo" "whitestar_systems_argo" {
   smart_routing  = "on"
   tiered_caching = "on"
