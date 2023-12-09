@@ -129,7 +129,6 @@ resource "cloudflare_record" "k3s_auth_ingress" {
   type    = "CNAME"
   proxied = true
   value   = "6bd25c6e-9222-43e6-bdb3-f989da6cbdb2.cfargotunnel.com"
-  allow_overwrite = true
 }
 
 resource "cloudflare_record" "brickyard_vlmcsd" {
