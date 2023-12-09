@@ -143,7 +143,7 @@ resource "cloudflare_record" "netbox" {
   zone_id = cloudflare_zone.whitestar_systems.id
   name    = "netbox"
   type    = "CNAME"
-  proxied = false
+  proxied = true
   value   = "netbox.auth-ing.k3s.brickyard.whitestar.systems"
 }
 
