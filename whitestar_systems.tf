@@ -1,5 +1,5 @@
 locals {
-  ws_n3d_services = ["netbox", "consul.brickyard", "nomad.brickyard", "grafana.brickyard", "prometheus.brickyard", "alertmanager.brickyard", "home"]
+  ws_n3d_services = ["consul.brickyard", "nomad.brickyard", "grafana.brickyard", "prometheus.brickyard", "alertmanager.brickyard", "home"]
 
   brickyard_local_ips = {
     "protect" : "10.0.10.10",
@@ -123,6 +123,14 @@ resource "cloudflare_record" "k3s_ingress" {
   value   = "10.30.0.3"
 }
 
+resource "cloudflare_record" "k3s_auth_ingress" {
+  zone_id = cloudflare_zone.whitestar_systems.id
+  name    = "*.auth-ing.k3s.brickyard"
+  type    = "CNAME"
+  proxied = true
+  value   = "6bd25c6e-9222-43e6-bdb3-f989da6cbdb2.cfargotunnel.com"
+  allow_overwrite = true
+}
 
 resource "cloudflare_record" "brickyard_vlmcsd" {
   zone_id = cloudflare_zone.whitestar_systems.id
@@ -130,6 +138,14 @@ resource "cloudflare_record" "brickyard_vlmcsd" {
   type    = "A"
   proxied = false
   value   = "10.30.0.1"
+}
+
+resource "cloudflare_record" "netbox" {
+  zone_id = cloudflare_zone.whitestar_systems.id
+  name    = "netbox"
+  type    = "CNAME"
+  proxied = false
+  value   = "netbox.auth-ing.k3s.brickyard.whitestar.systems"
 }
 
 resource "cloudflare_argo" "whitestar_systems_argo" {
