@@ -57,7 +57,7 @@ resource "cloudflare_record" "tompaulus_com_blog" {
   name    = "blog"
   type    = "CNAME"
   proxied = true
-  value   = cloudflare_load_balancer.n3d_lb.name
+  value   = "blog.auth-ing.k3s.brickyard.whitestar.systems"
 }
 
 // TODO Zone Configuration (Like Cache Settings)
