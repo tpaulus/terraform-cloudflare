@@ -3,17 +3,19 @@ locals {
 
   brickyard_local_ips = {
     "protect" : "10.0.10.10",
+    "broadmoor": "10.0.10.16",
     "laurelhurst" : "10.0.10.24",
     "woodlandpark" : "10.0.10.32",
     "roosevelt" : "10.0.10.64",
     "ravenna" : "10.0.10.80",
     "unifi-controller" : "10.0.1.6",
+    "beaconhill": "10.0.1.1",
   }
 
   k3s_primaries = [
     "10.0.10.24",
     "10.0.10.64",
-    "10.0.10.80"
+    "10.0.10.80",
   ]
 
   ipmi_addresses = {
@@ -59,14 +61,6 @@ resource "cloudflare_record" "whitestar_systems_n3d_services" {
   type    = "CNAME"
   proxied = true
   value   = cloudflare_load_balancer.n3d_lb.name
-}
-
-resource "cloudflare_record" "whitestar_systems_service_directory" {
-  zone_id = cloudflare_zone.whitestar_systems.id
-  name    = "sd.brickyard"
-  type    = "CNAME"
-  proxied = true
-  value   = "brickyard-landing.pages.dev"
 }
 
 resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
