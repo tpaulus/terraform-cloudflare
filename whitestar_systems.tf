@@ -1,5 +1,5 @@
 locals {
-  ws_n3d_services = ["consul.brickyard", "nomad.brickyard", "grafana.brickyard", "prometheus.brickyard", "alertmanager.brickyard", "home"]
+  ws_n3d_services = ["consul.brickyard", "nomad.brickyard", "grafana.brickyard", "prometheus.brickyard", "alertmanager.brickyard"]
 
   brickyard_local_ips = {
     "protect" : "10.0.10.10",
@@ -147,9 +147,16 @@ resource "cloudflare_record" "netbox" {
   value   = "netbox.auth-ing.k3s.brickyard.whitestar.systems"
 }
 
+resource "cloudflare_record" "home-assistant" {
+  zone_id = cloudflare_zone.whitestar_systems.id
+  name    = "home"
+  type    = "CNAME"
+  proxied = true
+  value   = "48e7a3de-628c-4199-8865-e63496dea8ae.cfargotunnel.com"
+}
+
 resource "cloudflare_argo" "whitestar_systems_argo" {
   smart_routing  = "on"
-  tiered_caching = "on"
   zone_id        = cloudflare_zone.whitestar_systems.id
 }
 
