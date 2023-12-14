@@ -153,6 +153,7 @@ resource "cloudflare_record" "home-assistant" {
   type    = "CNAME"
   proxied = true
   value   = "48e7a3de-628c-4199-8865-e63496dea8ae.cfargotunnel.com"
+  allow_overwrite = true
 }
 
 resource "cloudflare_argo" "whitestar_systems_argo" {
