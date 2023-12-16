@@ -1,6 +1,4 @@
 locals {
-  ws_n3d_services = ["consul.brickyard", "nomad.brickyard", "prometheus.brickyard", "alertmanager.brickyard"]
-
   brickyard_local_ips = {
     "protect" : "10.0.10.10",
     "broadmoor": "10.0.10.16",
@@ -51,16 +49,6 @@ resource "cloudflare_record" "whitestar_systems_github_verification" {
   name    = "_github-challenge-ws-systems-org"
   type    = "TXT"
   value   = "5a889d68b4"
-}
-
-resource "cloudflare_record" "whitestar_systems_n3d_services" {
-  for_each = toset(local.ws_n3d_services)
-
-  zone_id = cloudflare_zone.whitestar_systems.id
-  name    = each.key
-  type    = "CNAME"
-  proxied = true
-  value   = cloudflare_load_balancer.n3d_lb.name
 }
 
 resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
