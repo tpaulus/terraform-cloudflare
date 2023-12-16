@@ -26,6 +26,10 @@ resource "cloudflare_tunnel_config" "brickyard_warp_tunnel_config" {
         http_host_header = "home.whitestar.systems"
       }
     }
+
+    ingress_rule {
+      service = "http_status:503"
+    }
   }
 }
 
