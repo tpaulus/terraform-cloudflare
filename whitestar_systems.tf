@@ -1,5 +1,5 @@
 locals {
-  ws_n3d_services = ["consul.brickyard", "nomad.brickyard", "grafana.brickyard", "prometheus.brickyard", "alertmanager.brickyard"]
+  ws_n3d_services = ["consul.brickyard", "nomad.brickyard", "prometheus.brickyard", "alertmanager.brickyard"]
 
   brickyard_local_ips = {
     "protect" : "10.0.10.10",
@@ -148,6 +148,14 @@ resource "cloudflare_record" "home-assistant" {
   proxied = true
   value   = "48e7a3de-628c-4199-8865-e63496dea8ae.cfargotunnel.com"
   allow_overwrite = true
+}
+
+resource "cloudflare_record" "grafana-brickyard" {
+  zone_id = cloudflare_zone.whitestar_systems.id
+  name    = "grafana.brickyard"
+  type    = "CNAME"
+  proxied = true
+  value   = "grafana.auth-ing.k3s.brickyard.whitestar.systems"
 }
 
 resource "cloudflare_argo" "whitestar_systems_argo" {
