@@ -102,7 +102,7 @@ resource "cloudflare_record" "k3s_ingress" {
   name    = "*.ing.k3s.brickyard"
   type    = "A"
   proxied = false
-  value   = "10.30.0.3"
+  value   = "10.30.0.0"
 }
 
 resource "cloudflare_record" "k3s_auth_ingress" {
