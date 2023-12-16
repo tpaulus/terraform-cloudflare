@@ -134,7 +134,7 @@ resource "cloudflare_record" "home-assistant" {
   name    = "home"
   type    = "CNAME"
   proxied = true
-  value   = "48e7a3de-628c-4199-8865-e63496dea8ae.cfargotunnel.com"
+  value   = cloudflare_tunnel.brickyard_warp_tunnel.cname
   allow_overwrite = true
 }
 
