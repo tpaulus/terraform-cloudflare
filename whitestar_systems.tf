@@ -158,6 +158,14 @@ resource "cloudflare_record" "grafana-brickyard" {
   value   = "grafana.auth-ing.k3s.brickyard.whitestar.systems"
 }
 
+resource "cloudflare_record" "n8n-brickyard" {
+  zone_id = cloudflare_zone.whitestar_systems.id
+  name    = "n8n.brickyard"
+  type    = "CNAME"
+  proxied = true
+  value   = "n8n.auth-ing.k3s.brickyard.whitestar.systems"
+}
+
 resource "cloudflare_argo" "whitestar_systems_argo" {
   smart_routing  = "on"
   zone_id        = cloudflare_zone.whitestar_systems.id
