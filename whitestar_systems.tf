@@ -2,10 +2,10 @@ locals {
   brickyard_local_ips = {
     "protect" : "10.0.10.10",
     "broadmoor": "10.0.10.16",
-    "laurelhurst" : "10.0.10.24",
+    "laurelhurst" : "10.0.40.2",
     "woodlandpark" : "10.0.10.32",
-    "roosevelt" : "10.0.10.64",
-    "ravenna" : "10.0.10.80",
+    "roosevelt" : "10.0.40.4",
+    "ravenna" : "10.0.40.3",
     "unifi-controller" : "10.0.1.6",
     "beaconhill": "10.0.1.1",
   }
