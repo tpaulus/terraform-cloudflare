@@ -159,7 +159,7 @@ resource "cloudflare_record" "auth" {
   name    = "auth"
   type    = "CNAME"
   proxied = true
-  value   = "authentik.auth-ing.k3s.brickyard.whitestar.systems"
+  value   = "zitadel.auth-ing.k3s.brickyard.whitestar.systems"
 }
 
 resource "cloudflare_argo" "whitestar_systems_argo" {
