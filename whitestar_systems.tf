@@ -118,7 +118,7 @@ resource "cloudflare_record" "brickyard_vlmcsd" {
   name    = "vlmcsd.brickyard"
   type    = "A"
   proxied = false
-  value   = "10.30.0.2"
+  value   = "10.30.0.1"
 }
 
 resource "cloudflare_record" "netbox" {
