@@ -28,6 +28,19 @@ resource "cloudflare_tunnel_config" "brickyard_warp_tunnel_config" {
     }
 
     ingress_rule {
+      hostname = "woodlandpark-smb.access.brickyard.whitestar.systems"
+      path     = "/"
+      service  = "tcp://10.0.10.32:445"
+      origin_request {
+        access {
+          aud       = "bdade16db3fd775d1a784f2cdafb7e6e4ec66302202aa0ff1c1dea2151d7bcc9"
+          required  = true
+          team_name = "whitestar"
+        }
+      }
+    }
+
+    ingress_rule {
       service = "http_status:503"
     }
   }

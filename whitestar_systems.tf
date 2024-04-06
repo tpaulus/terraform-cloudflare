@@ -162,6 +162,14 @@ resource "cloudflare_record" "auth" {
   value   = "zitadel.auth-ing.k3s.brickyard.whitestar.systems"
 }
 
+resource "cloudflare_record" "woodlandpark-smb" {
+  zone_id = cloudflare_zone.whitestar_systems.id
+  name    = "woodlandpark-smb.access.brickyard"
+  type    = "CNAME"
+  proxied = true
+  value   = cloudflare_tunnel.brickyard_warp_tunnel.cname
+}
+
 resource "cloudflare_argo" "whitestar_systems_argo" {
   smart_routing  = "on"
   zone_id        = cloudflare_zone.whitestar_systems.id
