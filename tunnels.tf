@@ -33,7 +33,7 @@ resource "cloudflare_tunnel_config" "brickyard_warp_tunnel_config" {
       service  = "tcp://10.0.10.32:445"
       origin_request {
         access {
-          aud_tag   = "bdade16db3fd775d1a784f2cdafb7e6e4ec66302202aa0ff1c1dea2151d7bcc9"
+          aud_tag   = ["bdade16db3fd775d1a784f2cdafb7e6e4ec66302202aa0ff1c1dea2151d7bcc9"]
           required  = true
           team_name = "whitestar"
         }
