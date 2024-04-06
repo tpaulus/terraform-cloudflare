@@ -28,9 +28,9 @@ resource "cloudflare_tunnel_config" "brickyard_warp_tunnel_config" {
     }
 
     ingress_rule {
-      hostname = "woodlandpark-smb.access.brickyard.whitestar.systems"
+      hostname = "woodlandpark-ssh.access.brickyard.whitestar.systems"
       path     = "/"
-      service  = "tcp://10.0.10.32:445"
+      service  = "tcp://10.0.10.32:22"
       origin_request {
         access {
           aud_tag   = ["bdade16db3fd775d1a784f2cdafb7e6e4ec66302202aa0ff1c1dea2151d7bcc9"]

@@ -164,7 +164,7 @@ resource "cloudflare_record" "auth" {
 
 resource "cloudflare_record" "woodlandpark-smb" {
   zone_id = cloudflare_zone.whitestar_systems.id
-  name    = "woodlandpark-smb.access.brickyard"
+  name    = "woodlandpark-ssh.access.brickyard"
   type    = "CNAME"
   proxied = true
   value   = cloudflare_tunnel.brickyard_warp_tunnel.cname
