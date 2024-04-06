@@ -36,6 +36,6 @@ resource "cloudflare_tunnel_config" "brickyard_warp_tunnel_config" {
 resource "cloudflare_tunnel_route" "seaview_ip" {
   account_id         = local.cf_account_id
   tunnel_id          = cloudflare_tunnel.brickyard_warp_tunnel.id
-  network            = "10.0.0.0/8"
+  network            = "10.0.0.0/9"
   comment            = "Home Network Route"
 }
