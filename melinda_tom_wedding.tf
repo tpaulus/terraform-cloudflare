@@ -15,8 +15,6 @@ module "melinda_tom_wedding_email" {
 
   allowed_senders      = "include:spf.messagingengine.com include:_spf.mx.cloudflare.net include:relay.mailchannels.net"
   dmarc_report_address = "mailto:9782f98c803c4a17afc4d07788d2af87@dmarc-reports.cloudflare.net"
-
-  allow_overwrite = true
 }
 
 resource "cloudflare_record" "www_melinda_tom_wedding" {
@@ -181,60 +179,4 @@ resource "cloudflare_ruleset" "melinda_tom_wedding_transforms" {
   name    = "default"
   phase   = "http_request_transform"
   zone_id = cloudflare_zone.melinda_tom_wedding.id
-}
-
-
-import {
-  to = cloudflare_zone.melinda_tom_wedding
-  id = "38df5e9d893cf37271424d7ac7f24b64"
-}
-
-import {
-  to = cloudflare_record.www_melinda_tom_wedding
-  id = "38df5e9d893cf37271424d7ac7f24b64/adbd0e48f671d328ac55b79256b95bdb"
-}
-
-import {
-  to = cloudflare_record.apex_melinda_tom_wedding
-  id = "38df5e9d893cf37271424d7ac7f24b64/c18d3624147cb094215b90e18bc81d0f"
-}
-
-import {
-  to = cloudflare_record.mailchannels_melinda_tom_wedding
-  id = "38df5e9d893cf37271424d7ac7f24b64/9967b4d23cb4c91210858a914bad4bc1"
-}
-
-import {
-  to = cloudflare_record.workers_dkim_melinda_tom_wedding
-  id = "38df5e9d893cf37271424d7ac7f24b64/5bd0acd01822e50c6e5abd802c309cb8"
-}
-
-import {
-  to = cloudflare_ruleset.melinda_tom_wedding_http_config_settings
-  id = "zone/38df5e9d893cf37271424d7ac7f24b64/10aa3aab24354d2e9d7f970fb4d81130"
-}
-
-import {
-  to = cloudflare_ruleset.melinda_tom_wedding_rate_limiting
-  id = "zone/38df5e9d893cf37271424d7ac7f24b64/b37cf646a44d412b9f31289af717af80"
-}
-
-import {
-  to = cloudflare_ruleset.melinda_tom_wedding_redirects
-  id = "zone/38df5e9d893cf37271424d7ac7f24b64/7dcb9bba7c394faba7d7d9672e3e2a88"
-}
-
-import {
-  to = cloudflare_ruleset.melinda_tom_wedding_custom_waf
-  id = "zone/38df5e9d893cf37271424d7ac7f24b64/388d83c984a84233b64a2beadd6f388d"
-}
-
-import {
-  to = cloudflare_ruleset.melinda_tom_wedding_managed_waf
-  id = "zone/38df5e9d893cf37271424d7ac7f24b64/785164ecb2684c63b5af169adf42d397"
-}
-
-import {
-  to = cloudflare_ruleset.melinda_tom_wedding_transforms
-  id = "zone/38df5e9d893cf37271424d7ac7f24b64/84caef3e6964472c86c1e0076f2f8b30"
 }
