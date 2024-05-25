@@ -13,7 +13,7 @@ module "melinda_tom_wedding_email" {
   fqdn                                = cloudflare_zone.melinda_tom_wedding.zone
   create_client_configuration_records = false
 
-  allowed_senders      = "include:spf.messagingengine.com include:_spf.mx.cloudflare.net include:relay.mailchannels.net"
+  allowed_senders      = "include:spf.messagingengine.com include:amazonses.com"
   dmarc_report_address = "mailto:9782f98c803c4a17afc4d07788d2af87@dmarc-reports.cloudflare.net"
 }
 
@@ -33,24 +33,6 @@ resource "cloudflare_record" "apex_melinda_tom_wedding" {
   ttl     = 1
   type    = "CNAME"
   value   = "melinda-tom-wedding.pages.dev"
-  zone_id = cloudflare_zone.melinda_tom_wedding.id
-}
-
-resource "cloudflare_record" "mailchannels_melinda_tom_wedding" {
-  name    = "_mailchannels"
-  proxied = false
-  ttl     = 1
-  type    = "TXT"
-  value   = "v=mc1 cfid=melinda-tom.wedding cfid=melinda-tom-wedding.pages.dev"
-  zone_id = cloudflare_zone.melinda_tom_wedding.id
-}
-
-resource "cloudflare_record" "workers_dkim_melinda_tom_wedding" {
-  name    = "workers._domainkey"
-  proxied = false
-  ttl     = 1
-  type    = "TXT"
-  value   = "v=DKIM1; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4oTH+Tibu5o2eRknWUoPswvToLddfxUPq8TAfOxrte7gKVtVZF6R+W6MoNIYytBVWt+jQqgYFB1dfAm4/o8SFMNd6D1UjIViRE2+T9TBCTTUxQboBI/Yov2erNiQxwo4/lHuCcqsMZ/29SCwO92LZ1YW4Z8N5Pn1o0Y3w3rNGY8BwpWB9GnZ41Uzn8e0gVZOMVRa8CErygnWOCID2652firwExJUfCDcji3XDapSTG1f6mC1vh019a/WfEhJMrdQu6+DdUa92tkvGn64Ak+mOCTQx0AJ7zHzFmKDbTtGeQYMymgovS0Z7beuamQab2SX1BcL0GbjJcfEBNWFtPuCXwIDAQAB"
   zone_id = cloudflare_zone.melinda_tom_wedding.id
 }
 
