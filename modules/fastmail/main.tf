@@ -69,9 +69,6 @@ resource "cloudflare_record" "client_submission" {
   allow_overwrite = var.allow_overwrite
 
   data {
-    name     = var.fqdn
-    service  = "_submission"
-    proto    = "_tcp"
     priority = 0
     weight   = 1
     port     = 587
@@ -87,9 +84,6 @@ resource "cloudflare_record" "client_imap" {
   allow_overwrite = var.allow_overwrite
 
   data {
-    name     = var.fqdn
-    service  = "_imap"
-    proto    = "_tcp"
     priority = 0
     weight   = 0
     port     = 0
@@ -105,9 +99,6 @@ resource "cloudflare_record" "client_imaps" {
   allow_overwrite = var.allow_overwrite
 
   data {
-    name     = var.fqdn
-    service  = "_imaps"
-    proto    = "_tcp"
     priority = 0
     weight   = 1
     port     = 993
@@ -123,9 +114,6 @@ resource "cloudflare_record" "client_pop3" {
   allow_overwrite = var.allow_overwrite
 
   data {
-    name     = var.fqdn
-    service  = "_pop3"
-    proto    = "_tcp"
     priority = 0
     weight   = 0
     port     = 0
@@ -141,9 +129,6 @@ resource "cloudflare_record" "client_pop3s" {
   allow_overwrite = var.allow_overwrite
 
   data {
-    name     = var.fqdn
-    service  = "_pop3s"
-    proto    = "_tcp"
     priority = 10
     weight   = 1
     port     = 995
@@ -159,9 +144,6 @@ resource "cloudflare_record" "client_jmap" {
   allow_overwrite = var.allow_overwrite
 
   data {
-    name     = var.fqdn
-    service  = "_jmap"
-    proto    = "_tcp"
     priority = 0
     weight   = 1
     port     = 443
@@ -178,9 +160,6 @@ resource "cloudflare_record" "client_carddav" {
   allow_overwrite = var.allow_overwrite
 
   data {
-    name     = var.fqdn
-    service  = "_carddav"
-    proto    = "_tcp"
     priority = 0
     weight   = 0
     port     = 0
@@ -196,9 +175,6 @@ resource "cloudflare_record" "client_carddavs" {
   allow_overwrite = var.allow_overwrite
 
   data {
-    name     = var.fqdn
-    service  = "_carddavs"
-    proto    = "_tcp"
     priority = 0
     weight   = 1
     port     = 443
@@ -214,9 +190,6 @@ resource "cloudflare_record" "client_caldav" {
   allow_overwrite = var.allow_overwrite
 
   data {
-    name     = var.fqdn
-    service  = "_caldav"
-    proto    = "_tcp"
     priority = 0
     weight   = 0
     port     = 0
@@ -232,9 +205,6 @@ resource "cloudflare_record" "client_caldavs" {
   allow_overwrite = var.allow_overwrite
 
   data {
-    name     = var.fqdn
-    service  = "_caldavs"
-    proto    = "_tcp"
     priority = 0
     weight   = 1
     port     = 443
