@@ -25,6 +25,7 @@ resource "cloudflare_teams_rule" "block_content_categories" {
   traffic     = "any(dns.content_category[*] in {85 162 170})" # https://developers.cloudflare.com/cloudflare-one/policies/filtering/dns-policies/dns-categories/#category-and-subcategory-ids
   rule_settings {
     block_page_enabled = true
+    block_page_reason  = "Access to this category of sites is blocked."
   }
 }
 
@@ -39,6 +40,7 @@ resource "cloudflare_teams_rule" "block_security_risks" {
   traffic     = "any(dns.security_category[*] in {178 80 83 176 175 117 131 134 151 153})" # https://developers.cloudflare.com/cloudflare-one/policies/filtering/dns-policies/dns-categories/#category-and-subcategory-ids
   rule_settings {
     block_page_enabled = true
+    block_page_reason  = "This site is a security risk, and is therefor blocked."
   }
 }
 
