@@ -12,8 +12,8 @@ variable "fqdn" {
 
 variable "allowed_senders" {
   description = "Allowed Senders for the SPF Record"
-  type        = string
-  default     = "include:spf.messagingengine.com"
+  type        = list
+  default     = []
 }
 
 variable "dmarc_report_address" {

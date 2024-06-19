@@ -7,8 +7,8 @@ variable "zone_id" {
 
 variable "allowed_senders" {
   description = "Allowed Senders for the SPF Record"
-  type        = string
-  default     = "include:_spf.mx.cloudflare.net"
+  type        = list
+  default     = []
 }
 
 variable "allow_overwrite" {

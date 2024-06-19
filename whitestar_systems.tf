@@ -1,13 +1,13 @@
 locals {
   brickyard_local_ips = {
     "protect" : "10.0.10.10",
-    "broadmoor": "10.0.10.16",
+    "broadmoor" : "10.0.10.16",
     "laurelhurst" : "10.0.40.2",
     "woodlandpark" : "10.0.10.32",
     "roosevelt" : "10.0.40.4",
     "ravenna" : "10.0.40.3",
     "unifi-controller" : "10.0.1.6",
-    "beaconhill": "10.0.1.1",
+    "beaconhill" : "10.0.1.1",
   }
 
   k3s_primaries = [
@@ -34,7 +34,7 @@ module "whitestar_systems_email" {
   source = "./modules/cloudflare_email_routing"
 
   zone_id         = cloudflare_zone.whitestar_systems.id
-  allowed_senders = "include:_spf.mx.cloudflare.net include:amazonses.com"
+  allowed_senders = ["include:amazonses.com"]
 }
 
 resource "cloudflare_record" "whitestar_systems_keybase_verification" {
@@ -130,11 +130,11 @@ resource "cloudflare_record" "netbox" {
 }
 
 resource "cloudflare_record" "home-assistant" {
-  zone_id = cloudflare_zone.whitestar_systems.id
-  name    = "home"
-  type    = "CNAME"
-  proxied = true
-  value   = cloudflare_tunnel.brickyard_warp_tunnel.cname
+  zone_id         = cloudflare_zone.whitestar_systems.id
+  name            = "home"
+  type            = "CNAME"
+  proxied         = true
+  value           = cloudflare_tunnel.brickyard_warp_tunnel.cname
   allow_overwrite = true
 }
 
@@ -171,8 +171,8 @@ resource "cloudflare_record" "woodlandpark-smb" {
 }
 
 resource "cloudflare_argo" "whitestar_systems_argo" {
-  smart_routing  = "on"
-  zone_id        = cloudflare_zone.whitestar_systems.id
+  smart_routing = "on"
+  zone_id       = cloudflare_zone.whitestar_systems.id
 }
 
 // TODO Zone Configuration (Like Cache Settings)

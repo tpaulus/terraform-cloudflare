@@ -16,14 +16,14 @@ resource "cloudflare_tunnel_config" "brickyard_warp_tunnel_config" {
     warp_routing {
       enabled = true
     }
-    
+
     ingress_rule {
       hostname = "home.whitestar.systems"
       path     = "/"
       service  = "http://127.0.0.1:8123"
       origin_request {
         disable_chunked_encoding = true
-        http_host_header = "home.whitestar.systems"
+        http_host_header         = "home.whitestar.systems"
       }
     }
 
@@ -47,8 +47,8 @@ resource "cloudflare_tunnel_config" "brickyard_warp_tunnel_config" {
 }
 
 resource "cloudflare_tunnel_route" "seaview_ip" {
-  account_id         = local.cf_account_id
-  tunnel_id          = cloudflare_tunnel.brickyard_warp_tunnel.id
-  network            = "10.0.0.0/9"
-  comment            = "Home Network Route"
+  account_id = local.cf_account_id
+  tunnel_id  = cloudflare_tunnel.brickyard_warp_tunnel.id
+  network    = "10.0.0.0/9"
+  comment    = "Home Network Route"
 }

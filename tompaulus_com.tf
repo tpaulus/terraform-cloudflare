@@ -10,7 +10,7 @@ module "tompaulus_com_email" {
   fqdn                                = cloudflare_zone.tompaulus_com.zone
   create_client_configuration_records = true
   create_wildcard_mx_records          = true
-  allowed_senders                     = "include:spf.messagingengine.com include:amazonses.com"
+  allowed_senders                     = ["include:amazonses.com"]
   dmarc_report_address                = "mailto:3f08cb85c9d54864871c1d8351cf31e6@dmarc-reports.cloudflare.net"
 }
 

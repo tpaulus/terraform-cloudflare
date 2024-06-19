@@ -13,7 +13,7 @@ module "melinda_tom_wedding_email" {
   fqdn                                = cloudflare_zone.melinda_tom_wedding.zone
   create_client_configuration_records = false
 
-  allowed_senders      = "include:spf.messagingengine.com include:amazonses.com"
+  allowed_senders      = ["include:amazonses.com"]
   dmarc_report_address = "mailto:9782f98c803c4a17afc4d07788d2af87@dmarc-reports.cloudflare.net"
 }
 

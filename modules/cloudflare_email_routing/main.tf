@@ -4,6 +4,10 @@ locals {
     { name : "linda.mx.cloudflare.net", priority : 57 },
     { name : "amir.mx.cloudflare.net", priority : 6 },
   ]
+
+  spf_default = [
+    "include:_spf.mx.cloudflare.net"
+  ]
 }
 
 resource "cloudflare_record" "mx" {
@@ -21,6 +25,6 @@ resource "cloudflare_record" "spf" {
   zone_id         = var.zone_id
   name            = "@"
   type            = "TXT"
-  value           = "v=spf1 ${var.allowed_senders} -all"
+  value           = "v=spf1 ${join(" ", concat(tolist(local.spf_default), var.allowed_senders))} -all"
   allow_overwrite = var.allow_overwrite
 }

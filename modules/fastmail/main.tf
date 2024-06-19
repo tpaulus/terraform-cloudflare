@@ -3,6 +3,10 @@ locals {
     { name : "in1-smtp.messagingengine.com", priority : 10 },
     { name : "in2-smtp.messagingengine.com", priority : 20 }
   ]
+
+  spf_default = [
+      "include:spf.messagingengine.com"
+  ]
 }
 
 
@@ -57,7 +61,7 @@ resource "cloudflare_record" "spf" {
   zone_id         = var.zone_id
   name            = "@"
   type            = "TXT"
-  value           = "v=spf1 ${var.allowed_senders} -all"
+  value           = "v=spf1 ${join(" ", concat(tolist(local.spf_default), var.allowed_senders))} -all"
   allow_overwrite = var.allow_overwrite
 }
 
