@@ -11,6 +11,7 @@ module "paulus_family_email" {
   create_client_configuration_records = false
   create_wildcard_mx_records          = true
   dmarc_report_address                = "mailto:d6b6ea49728e40aabe6f5d3b65646b12@dmarc-reports.cloudflare.net"
+  allowed_senders                     = ["include:spf.mtasv.net"]
 }
 
 resource "cloudflare_record" "pirate_ship_dkim" {
