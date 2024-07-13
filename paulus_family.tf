@@ -28,3 +28,12 @@ resource "cloudflare_record" "pirate_ship_bounces" {
   value   = "pm.mtasv.net"
   proxied = false
 }
+
+resource "cloudflare_record" "home-assistant" {
+  zone_id         = cloudflare_zone.paulus_family.id
+  name            = "home"
+  type            = "CNAME"
+  proxied         = true
+  value           = cloudflare_tunnel.brickyard_warp_tunnel.cname
+  allow_overwrite = true
+}

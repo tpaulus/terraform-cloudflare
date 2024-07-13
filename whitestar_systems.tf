@@ -129,15 +129,6 @@ resource "cloudflare_record" "netbox" {
   value   = "netbox.auth-ing.k3s.brickyard.whitestar.systems"
 }
 
-resource "cloudflare_record" "home-assistant" {
-  zone_id         = cloudflare_zone.whitestar_systems.id
-  name            = "home"
-  type            = "CNAME"
-  proxied         = true
-  value           = cloudflare_tunnel.brickyard_warp_tunnel.cname
-  allow_overwrite = true
-}
-
 resource "cloudflare_record" "grafana-brickyard" {
   zone_id = cloudflare_zone.whitestar_systems.id
   name    = "grafana.brickyard"
