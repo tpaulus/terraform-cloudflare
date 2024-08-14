@@ -33,7 +33,7 @@ resource "cloudflare_record" "tompaulus_com_keybase_verification" {
   zone_id = cloudflare_zone.tompaulus_com.id
   name    = "@"
   type    = "TXT"
-  value   = "keybase-site-verification=ANVrHna38pR4HiCmhXorD3QPw0bqpsqIGKtDvNLTtwA"
+  content   = "keybase-site-verification=ANVrHna38pR4HiCmhXorD3QPw0bqpsqIGKtDvNLTtwA"
 }
 
 resource "cloudflare_record" "tompaulus_com_root" {
@@ -41,7 +41,7 @@ resource "cloudflare_record" "tompaulus_com_root" {
   name    = "@"
   type    = "CNAME"
   proxied = true
-  value   = "tom-www.pages.dev"
+  content   = "tom-www.pages.dev"
 }
 
 resource "cloudflare_record" "tompaulus_com_www" {
@@ -49,7 +49,7 @@ resource "cloudflare_record" "tompaulus_com_www" {
   name    = "www"
   type    = "CNAME"
   proxied = true
-  value   = "tompaulus.com"
+  content   = "tompaulus.com"
 }
 
 resource "cloudflare_record" "tompaulus_com_blog" {
@@ -57,7 +57,7 @@ resource "cloudflare_record" "tompaulus_com_blog" {
   name    = "blog"
   type    = "CNAME"
   proxied = true
-  value   = "blog.auth-ing.k3s.brickyard.whitestar.systems"
+  content   = "blog.auth-ing.k3s.brickyard.whitestar.systems"
 }
 
 // TODO Zone Configuration (Like Cache Settings)

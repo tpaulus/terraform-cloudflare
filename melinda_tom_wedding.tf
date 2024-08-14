@@ -23,7 +23,7 @@ resource "cloudflare_record" "www_melinda_tom_wedding" {
   proxied = true
   ttl     = 1
   type    = "AAAA"
-  value   = "100::"
+  content   = "100::"
   zone_id = cloudflare_zone.melinda_tom_wedding.id
 }
 
@@ -32,7 +32,7 @@ resource "cloudflare_record" "apex_melinda_tom_wedding" {
   proxied = true
   ttl     = 1
   type    = "CNAME"
-  value   = "melinda-tom-wedding.pages.dev"
+  content   = "melinda-tom-wedding.pages.dev"
   zone_id = cloudflare_zone.melinda_tom_wedding.id
 }
 

@@ -15,7 +15,7 @@ resource "cloudflare_record" "mx" {
   zone_id         = var.zone_id
   name            = "@"
   type            = "MX"
-  value           = local.mx_servers[count.index].name
+  content           = local.mx_servers[count.index].name
   priority        = local.mx_servers[count.index].priority
   ttl             = 1
   allow_overwrite = var.allow_overwrite
@@ -25,6 +25,6 @@ resource "cloudflare_record" "spf" {
   zone_id         = var.zone_id
   name            = "@"
   type            = "TXT"
-  value           = "v=spf1 ${join(" ", concat(tolist(local.spf_default), var.allowed_senders))} -all"
+  content           = "v=spf1 ${join(" ", concat(tolist(local.spf_default), var.allowed_senders))} -all"
   allow_overwrite = var.allow_overwrite
 }

@@ -18,14 +18,14 @@ resource "cloudflare_record" "pirate_ship_dkim" {
   zone_id = cloudflare_zone.paulus_family.id
   name    = "20240619041211pm._domainkey"
   type    = "TXT"
-  value   = "k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDNQxj6/H4/+X1gbz0khrP5c+LI7JMZNW/FC4laAJsuLThYh48ENFDH/6lW5MmjDdQcERbDYF6qm9bLmUjZzKkrXRQsPigf9+VSufKE4OU5QeT8zGZ/JdDKfHQLvIT6rqXgmPTd/7/SADQ6NSZSBN5NP30/z85EcEEJGzhD4FypVwIDAQAB"
+  content   = "k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDNQxj6/H4/+X1gbz0khrP5c+LI7JMZNW/FC4laAJsuLThYh48ENFDH/6lW5MmjDdQcERbDYF6qm9bLmUjZzKkrXRQsPigf9+VSufKE4OU5QeT8zGZ/JdDKfHQLvIT6rqXgmPTd/7/SADQ6NSZSBN5NP30/z85EcEEJGzhD4FypVwIDAQAB"
 }
 
 resource "cloudflare_record" "pirate_ship_bounces" {
   zone_id = cloudflare_zone.paulus_family.id
   name    = "pm-bounces"
   type    = "CNAME"
-  value   = "pm.mtasv.net"
+  content   = "pm.mtasv.net"
   proxied = false
 }
 
@@ -34,6 +34,6 @@ resource "cloudflare_record" "home-assistant" {
   name            = "home"
   type            = "CNAME"
   proxied         = true
-  value           = cloudflare_tunnel.brickyard_warp_tunnel.cname
+  content           = cloudflare_tunnel.brickyard_warp_tunnel.cname
   allow_overwrite = true
 }

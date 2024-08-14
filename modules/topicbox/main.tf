@@ -3,7 +3,7 @@ resource "cloudflare_record" "mx" {
   zone_id         = var.zone_id
   name            = "@"
   type            = "MX"
-  value           = "mx${count.index}.topicbox.com"
+  content           = "mx${count.index}.topicbox.com"
   priority        = 10
   ttl             = 86400
   allow_overwrite = var.allow_overwrite
@@ -14,7 +14,7 @@ resource "cloudflare_record" "dkim" {
   zone_id         = var.zone_id
   name            = "dkim-${count.index + 1}._domainkey"
   type            = "CNAME"
-  value           = "dkim-${count.index + 1}._domainkey.${var.fqdn}.dkim.topicbox.com"
+  content           = "dkim-${count.index + 1}._domainkey.${var.fqdn}.dkim.topicbox.com"
   allow_overwrite = var.allow_overwrite
 }
 
@@ -22,7 +22,7 @@ resource "cloudflare_record" "dmarc" {
   zone_id         = var.zone_id
   name            = "_dmarc"
   type            = "TXT"
-  value           = "v=DMARC1; p=quarantine; rua=${var.dmarc_report_address}"
+  content           = "v=DMARC1; p=quarantine; rua=${var.dmarc_report_address}"
   allow_overwrite = var.allow_overwrite
 }
 
@@ -30,6 +30,6 @@ resource "cloudflare_record" "spf" {
   zone_id         = var.zone_id
   name            = "@"
   type            = "TXT"
-  value           = "v=spf1 ${var.allowed_senders} -all"
+  content           = "v=spf1 ${var.allowed_senders} -all"
   allow_overwrite = var.allow_overwrite
 }

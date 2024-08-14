@@ -15,7 +15,7 @@ resource "cloudflare_record" "mx" {
   zone_id         = var.zone_id
   name            = "@"
   type            = "MX"
-  value           = local.mx_servers[count.index].name
+  content           = local.mx_servers[count.index].name
   priority        = local.mx_servers[count.index].priority
   ttl             = 86400
   allow_overwrite = var.allow_overwrite
@@ -26,7 +26,7 @@ resource "cloudflare_record" "mx_wildcard" {
   zone_id         = var.zone_id
   name            = "*"
   type            = "MX"
-  value           = local.mx_servers[count.index].name
+  content           = local.mx_servers[count.index].name
   priority        = local.mx_servers[count.index].priority
   ttl             = 86400
   allow_overwrite = var.allow_overwrite
@@ -36,7 +36,7 @@ resource "cloudflare_record" "dkim_mesmtp" {
   zone_id         = var.zone_id
   name            = "mesmtp._domainkey"
   type            = "CNAME"
-  value           = "mesmtp.${var.fqdn}.dkim.fmhosted.com"
+  content           = "mesmtp.${var.fqdn}.dkim.fmhosted.com"
   allow_overwrite = var.allow_overwrite
 }
 
@@ -45,7 +45,7 @@ resource "cloudflare_record" "dkim" {
   zone_id         = var.zone_id
   name            = "fm${count.index + 1}._domainkey"
   type            = "CNAME"
-  value           = "fm${count.index + 1}.${var.fqdn}.dkim.fmhosted.com"
+  content           = "fm${count.index + 1}.${var.fqdn}.dkim.fmhosted.com"
   allow_overwrite = var.allow_overwrite
 }
 
@@ -53,7 +53,7 @@ resource "cloudflare_record" "dmarc" {
   zone_id         = var.zone_id
   name            = "_dmarc"
   type            = "TXT"
-  value           = "v=DMARC1; p=quarantine; rua=${var.dmarc_report_address}"
+  content           = "v=DMARC1; p=quarantine; rua=${var.dmarc_report_address}"
   allow_overwrite = var.allow_overwrite
 }
 
@@ -61,7 +61,7 @@ resource "cloudflare_record" "spf" {
   zone_id         = var.zone_id
   name            = "@"
   type            = "TXT"
-  value           = "v=spf1 ${join(" ", concat(tolist(local.spf_default), var.allowed_senders))} -all"
+  content           = "v=spf1 ${join(" ", concat(tolist(local.spf_default), var.allowed_senders))} -all"
   allow_overwrite = var.allow_overwrite
 }
 
