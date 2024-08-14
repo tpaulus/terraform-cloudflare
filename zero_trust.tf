@@ -76,7 +76,10 @@ variable "zt_split_tunnel_file" {
 }
 
 locals {
-  cidr_list = [for cidr in split("\n", file(var.zt_split_tunnel_file)) : trimspace(cidr) if cidr != ""]
+  cidr_list = [
+    for cidr in split("\n", file(var.zt_split_tunnel_file)) : trimspace(cidr)
+    if cidr != "" && !startswith(trimspace(cidr), "#")
+  ]
 }
 
 resource "cloudflare_split_tunnel" "default_split_tunnel_exclude" {
