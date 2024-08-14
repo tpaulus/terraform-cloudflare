@@ -80,11 +80,14 @@ locals {
 }
 
 resource "cloudflare_split_tunnel" "default_split_tunnel_exclude" {
-  for_each   = toset(local.cidr_list)
   account_id = local.cf_account_id
   mode       = "exclude"
-  tunnels {
-    address     = each.value
-    description = ""
+
+  dynamic "tunnels" {
+    for_each = local.cidr_list
+    content {
+      address     = tunnels.value
+      description = ""
+    }
   }
 }
