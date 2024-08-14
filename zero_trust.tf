@@ -69,3 +69,22 @@ resource "cloudflare_teams_rule" "block_tor" {
     block_page_reason  = "Access to TOR Sites is blocked."
   }
 }
+
+# Split Tunnel Configs
+variable "zt_split_tunnel_file" {
+  default = "zt_split_tunnel.txt"
+}
+
+locals {
+  cidr_list = [for cidr in split("\n", file(var.zt_split_tunnel_file)) : trimspace(cidr) if cidr != ""]
+}
+
+resource "cloudflare_split_tunnel" "default_split_tunnel_exclude" {
+  for_each   = toset(local.cidr_list)
+  account_id = local.cf_account_id
+  mode       = "exclude"
+  tunnels {
+    address     = each.value
+    description = ""
+  }
+}
