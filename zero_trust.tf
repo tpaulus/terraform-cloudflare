@@ -171,6 +171,7 @@ locals {
 resource "cloudflare_split_tunnel" "split_tunnel_exclude" {
   for_each   = toset(local.device_settings_policy_ids)
   account_id = local.cf_account_id
+  policy_id  = each.value
   mode       = "exclude"
 
   dynamic "tunnels" {
