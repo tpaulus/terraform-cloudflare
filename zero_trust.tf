@@ -70,6 +70,85 @@ resource "cloudflare_teams_rule" "block_tor" {
   }
 }
 
+# Warp Client Policies
+resource "cloudflare_device_settings_policy" "trusted_location_warp_policy" {
+  account_id            = local.cf_account_id
+  name                  = "Disable when on trusted network"
+  description           = ""
+  precedence            = 500
+  match                 = "network in {\"Seaview\"}"
+  default               = false
+  enabled               = true
+  allow_mode_switch     = false
+  allow_updates         = true
+  allowed_to_leave      = true
+  auto_connect          = 0
+  captive_portal        = 180
+  disable_auto_fallback = false
+  switch_locked         = false
+  service_mode_v2_mode  = "posture_only"
+  service_mode_v2_port  = 0
+  exclude_office_ips    = false
+}
+
+resource "cloudflare_device_settings_policy" "mobile_device_warp_policy" {
+  account_id            = local.cf_account_id
+  name                  = "Mobile Client"
+  description           = ""
+  precedence            = 1000
+  match                 = "os.name in {\"ios\" \"android\"}"
+  default               = false
+  enabled               = true
+  allow_mode_switch     = false
+  allow_updates         = true
+  allowed_to_leave      = true
+  auto_connect          = 180
+  captive_portal        = 600
+  disable_auto_fallback = false
+  switch_locked         = false
+  service_mode_v2_mode  = "warp"
+  service_mode_v2_port  = 0
+  exclude_office_ips    = false
+}
+
+resource "cloudflare_device_settings_policy" "desktop_device_warp_policy" {
+  account_id            = local.cf_account_id
+  name                  = "Desktops"
+  description           = ""
+  precedence            = 2000
+  match                 = "os.name in {\"windows\" \"mac\" \"chromeos\" \"linux\"}"
+  default               = false
+  enabled               = true
+  allow_mode_switch     = true
+  allow_updates         = true
+  allowed_to_leave      = true
+  auto_connect          = 180
+  captive_portal        = 600
+  disable_auto_fallback = false
+  switch_locked         = false
+  service_mode_v2_mode  = "warp"
+  service_mode_v2_port  = 0
+  exclude_office_ips    = false
+}
+
+resource "cloudflare_device_settings_policy" "default_warp_policy" {
+  account_id            = local.cf_account_id
+  name                  = ""
+  description           = ""
+  default               = true
+  enabled               = true
+  allow_mode_switch     = true
+  allow_updates         = true
+  allowed_to_leave      = true
+  auto_connect          = 0
+  captive_portal        = 600
+  disable_auto_fallback = false
+  switch_locked         = false
+  service_mode_v2_mode  = "warp"
+  service_mode_v2_port  = 0
+  exclude_office_ips    = false
+}
+
 # Split Tunnel Configs
 variable "zt_split_tunnel_file" {
   default = "zt_split_tunnel.txt"
@@ -80,9 +159,17 @@ locals {
     for cidr in split("\n", file(var.zt_split_tunnel_file)) : trimspace(cidr)
     if cidr != "" && !startswith(trimspace(cidr), "#")
   ]
+
+  device_settings_policy_ids = [
+    cloudflare_device_settings_policy.trusted_location_warp_policy.id,
+    cloudflare_device_settings_policy.mobile_device_warp_policy.id,
+    cloudflare_device_settings_policy.desktop_device_warp_policy.id,
+    cloudflare_device_settings_policy.default_warp_policy.id,
+  ]
 }
 
-resource "cloudflare_split_tunnel" "default_split_tunnel_exclude" {
+resource "cloudflare_split_tunnel" "split_tunnel_exclude" {
+  for_each   = toset(local.device_settings_policy_ids)
   account_id = local.cf_account_id
   mode       = "exclude"
 
