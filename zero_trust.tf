@@ -75,7 +75,7 @@ resource "cloudflare_device_settings_policy" "trusted_location_warp_policy" {
   account_id            = local.cf_account_id
   name                  = "Disable when on trusted network"
   description           = ""
-  precedence            = 500
+  precedence            = 10
   match                 = "network in {\"Seaview\"}"
   default               = false
   enabled               = true
@@ -95,7 +95,7 @@ resource "cloudflare_device_settings_policy" "mobile_device_warp_policy" {
   account_id            = local.cf_account_id
   name                  = "Mobile Client"
   description           = ""
-  precedence            = 1000
+  precedence            = 20
   match                 = "os.name in {\"ios\" \"android\"}"
   default               = false
   enabled               = true
@@ -115,7 +115,7 @@ resource "cloudflare_device_settings_policy" "desktop_device_warp_policy" {
   account_id            = local.cf_account_id
   name                  = "Desktops"
   description           = ""
-  precedence            = 2000
+  precedence            = 30
   match                 = "os.name in {\"windows\" \"mac\" \"chromeos\" \"linux\"}"
   default               = false
   enabled               = true
