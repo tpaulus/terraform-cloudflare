@@ -41,14 +41,14 @@ resource "cloudflare_record" "whitestar_systems_keybase_verification" {
   zone_id = cloudflare_zone.whitestar_systems.id
   name    = "@"
   type    = "TXT"
-  content   = "keybase-site-verification=ZMKzMIfHqDIUV4SrGSCCRP09C0TSada5zNxdosjudGA"
+  content = "keybase-site-verification=ZMKzMIfHqDIUV4SrGSCCRP09C0TSada5zNxdosjudGA"
 }
 
 resource "cloudflare_record" "whitestar_systems_github_verification" {
   zone_id = cloudflare_zone.whitestar_systems.id
   name    = "_github-challenge-ws-systems-org"
   type    = "TXT"
-  content   = "5a889d68b4"
+  content = "5a889d68b4"
 }
 
 resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
@@ -58,7 +58,7 @@ resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
   name    = "${each.key}.brickyard"
   type    = "A"
   proxied = false
-  content   = each.value
+  content = each.value
 }
 
 resource "cloudflare_record" "whitestar_systems_ipmi_ips" {
@@ -68,7 +68,7 @@ resource "cloudflare_record" "whitestar_systems_ipmi_ips" {
   name    = "${each.key}.brickyard.ipmi"
   type    = "A"
   proxied = false
-  content   = each.value
+  content = each.value
 }
 
 resource "cloudflare_record" "whitestar_brickyard_ubnt" {
@@ -76,7 +76,7 @@ resource "cloudflare_record" "whitestar_brickyard_ubnt" {
   name    = "ubnt.brickyard"
   type    = "CNAME"
   proxied = false
-  content   = "unifi-controller.brickyard.whitestar.systems"
+  content = "unifi-controller.brickyard.whitestar.systems"
   ttl     = "30"
 }
 
@@ -84,7 +84,7 @@ resource "cloudflare_record" "dmarc" {
   zone_id = cloudflare_zone.whitestar_systems.id
   name    = "_dmarc"
   type    = "TXT"
-  content   = "v=DMARC1; p=quarantine; rua=mailto:64203f8a3e304420b20686d30874ffc9@dmarc-reports.cloudflare.net"
+  content = "v=DMARC1; p=quarantine; rua=mailto:64203f8a3e304420b20686d30874ffc9@dmarc-reports.cloudflare.net"
 }
 
 resource "cloudflare_record" "k3s_primaries" {
@@ -94,7 +94,7 @@ resource "cloudflare_record" "k3s_primaries" {
   name    = "k3s.brickyard"
   type    = "A"
   proxied = false
-  content   = each.key
+  content = each.key
 }
 
 resource "cloudflare_record" "k3s_ingress" {
@@ -102,7 +102,7 @@ resource "cloudflare_record" "k3s_ingress" {
   name    = "*.ing.k3s.brickyard"
   type    = "A"
   proxied = false
-  content   = "10.30.0.0"
+  content = "10.30.0.0"
 }
 
 resource "cloudflare_record" "k3s_auth_ingress" {
@@ -110,7 +110,7 @@ resource "cloudflare_record" "k3s_auth_ingress" {
   name    = "*.auth-ing.k3s.brickyard"
   type    = "CNAME"
   proxied = true
-  content   = "6bd25c6e-9222-43e6-bdb3-f989da6cbdb2.cfargotunnel.com"
+  content = "6bd25c6e-9222-43e6-bdb3-f989da6cbdb2.cfargotunnel.com"
 }
 
 resource "cloudflare_record" "brickyard_vlmcsd" {
@@ -118,7 +118,7 @@ resource "cloudflare_record" "brickyard_vlmcsd" {
   name    = "vlmcsd.brickyard"
   type    = "A"
   proxied = false
-  content   = "10.30.0.1"
+  content = "10.30.0.1"
 }
 
 resource "cloudflare_record" "netbox" {
@@ -126,7 +126,7 @@ resource "cloudflare_record" "netbox" {
   name    = "netbox"
   type    = "CNAME"
   proxied = true
-  content   = "netbox.auth-ing.k3s.brickyard.whitestar.systems"
+  content = "netbox.auth-ing.k3s.brickyard.whitestar.systems"
 }
 
 resource "cloudflare_record" "grafana-brickyard" {
@@ -134,7 +134,7 @@ resource "cloudflare_record" "grafana-brickyard" {
   name    = "grafana.brickyard"
   type    = "CNAME"
   proxied = true
-  content   = "grafana.auth-ing.k3s.brickyard.whitestar.systems"
+  content = "grafana.auth-ing.k3s.brickyard.whitestar.systems"
 }
 
 resource "cloudflare_record" "n8n-brickyard" {
@@ -142,7 +142,7 @@ resource "cloudflare_record" "n8n-brickyard" {
   name    = "n8n.brickyard"
   type    = "CNAME"
   proxied = true
-  content   = "n8n.auth-ing.k3s.brickyard.whitestar.systems"
+  content = "n8n.auth-ing.k3s.brickyard.whitestar.systems"
 }
 
 resource "cloudflare_record" "auth" {
@@ -150,7 +150,7 @@ resource "cloudflare_record" "auth" {
   name    = "auth"
   type    = "CNAME"
   proxied = true
-  content   = "zitadel.auth-ing.k3s.brickyard.whitestar.systems"
+  content = "zitadel.auth-ing.k3s.brickyard.whitestar.systems"
 }
 
 resource "cloudflare_record" "woodlandpark-smb" {
@@ -158,7 +158,7 @@ resource "cloudflare_record" "woodlandpark-smb" {
   name    = "woodlandpark-ssh.access.brickyard"
   type    = "CNAME"
   proxied = true
-  content   = cloudflare_tunnel.brickyard_warp_tunnel.cname
+  content = cloudflare_tunnel.brickyard_warp_tunnel.cname
 }
 
 resource "cloudflare_argo" "whitestar_systems_argo" {

@@ -70,6 +70,16 @@ resource "cloudflare_teams_rule" "block_tor" {
   }
 }
 
+resource "cloudflare_device_managed_networks" "seaview" {
+  account_id = local.cf_account_id
+  name       = "Seaview"
+  type       = "tls"
+  config {
+    tls_sockaddr = "10.0.10.220:443"
+    sha256       = lower("D693C2456E86E0535A2801F6335FD801BD1CF1ADCC51413E1946D1FA696655C6")
+  }
+}
+
 # Warp Client Policies
 resource "cloudflare_device_settings_policy" "trusted_location_warp_policy" {
   account_id            = local.cf_account_id
