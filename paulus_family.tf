@@ -39,7 +39,7 @@ resource "cloudflare_record" "home-assistant" {
 }
 
 resource "cloudflare_record" "paperless" {
-  zone_id = cloudflare_zone.paulus_family
+  zone_id = cloudflare_zone.paulus_family.id
   name    = "paperless"
   type    = "CNAME"
   proxied = true
