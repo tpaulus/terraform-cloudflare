@@ -37,3 +37,11 @@ resource "cloudflare_record" "home-assistant" {
   content         = cloudflare_tunnel.brickyard_warp_tunnel.cname
   allow_overwrite = true
 }
+
+resource "cloudflare_record" "paperless" {
+  zone_id = cloudflare_zone.paulus_family
+  name    = "paperless"
+  type    = "CNAME"
+  proxied = true
+  content = "paperless.auth-ing.k3s.brickyard.whitestar.systems"
+}

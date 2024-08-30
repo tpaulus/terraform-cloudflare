@@ -108,7 +108,7 @@ resource "cloudflare_device_settings_policy" "mobile_device_warp_policy" {
   precedence            = 20
   match                 = "os.name in {\"ios\" \"android\"}"
   default               = false
-  enabled               = false  # Disabled until trusted_location_warp_policy is actually working - test via `warp-cli debug alternate-network`
+  enabled               = false # Disabled until trusted_location_warp_policy is actually working - test via `warp-cli debug alternate-network`
   allow_mode_switch     = false
   allow_updates         = true
   allowed_to_leave      = true
@@ -128,7 +128,7 @@ resource "cloudflare_device_settings_policy" "desktop_device_warp_policy" {
   precedence            = 30
   match                 = "os.name in {\"windows\" \"mac\" \"chromeos\" \"linux\"}"
   default               = false
-  enabled               = false  # Disabled until trusted_location_warp_policy is actually working - test via `warp-cli debug alternate-network`
+  enabled               = false # Disabled until trusted_location_warp_policy is actually working - test via `warp-cli debug alternate-network`
   allow_mode_switch     = true
   allow_updates         = true
   allowed_to_leave      = true
