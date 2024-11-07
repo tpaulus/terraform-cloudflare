@@ -127,6 +127,22 @@ resource "cloudflare_ruleset" "melinda_tom_wedding_custom_waf" {
   phase   = "http_request_firewall_custom"
   zone_id = cloudflare_zone.melinda_tom_wedding.id
   rules {
+    action      = "skip"
+    description = "Allow Bots to access Internal APIs"
+    enabled     = true
+    expression  = "(starts_with(http.request.uri.path, \"/internal/\"))"
+
+    action_parameters {
+      phases = [
+        "http_request_sbfm"
+      ]
+    }
+
+    logging {
+      enabled = false
+    }
+  }
+  rules {
     action      = "managed_challenge"
     description = "Challenge Threat <= 10"
     enabled     = true
