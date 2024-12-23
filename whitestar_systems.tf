@@ -1,6 +1,5 @@
 locals {
   brickyard_local_ips = {
-    "protect" : "10.0.10.10",
     "broadmoor" : "10.0.10.16",
     "laurelhurst" : "10.0.40.2",
     "woodlandpark" : "10.0.10.32",
@@ -156,6 +155,14 @@ resource "cloudflare_record" "auth" {
 resource "cloudflare_record" "woodlandpark-smb" {
   zone_id = cloudflare_zone.whitestar_systems.id
   name    = "woodlandpark-ssh.access.brickyard"
+  type    = "CNAME"
+  proxied = true
+  content = cloudflare_tunnel.brickyard_warp_tunnel.cname
+}
+
+resource "cloudflare_record" "protect" {
+  zone_id = cloudflare_zone.whitestar_systems.id
+  name    = "protect.brickyard"
   type    = "CNAME"
   proxied = true
   content = cloudflare_tunnel.brickyard_warp_tunnel.cname
