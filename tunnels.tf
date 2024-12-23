@@ -46,7 +46,8 @@ resource "cloudflare_tunnel_config" "brickyard_warp_tunnel_config" {
       service  = "https://10.0.10.10"
 
       origin_request {
-        http_host_header         = "protect.brickyard.whitestar.systems"
+        http_host_header = "protect.brickyard.whitestar.systems"
+        no_tls_verify    = true
 
         access {
           aud_tag   = ["1fdfe9a312a2ce922ba775bb430107d98fad76d4283a3038f472b19ed7fb71c0"]
