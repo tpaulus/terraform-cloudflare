@@ -165,7 +165,6 @@ resource "cloudflare_ruleset" "melinda_tom_wedding_managed_waf" {
     action = "execute"
     action_parameters {
       id      = "efb7b8c949ac4650a09736fc376e9aee"
-      version = "latest"
     }
     enabled    = true
     expression = "true"
