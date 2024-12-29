@@ -20,10 +20,11 @@ resource "cloudflare_tunnel_config" "brickyard_warp_tunnel_config" {
     ingress_rule {
       hostname = "home.paulus.family"
       path     = "/"
-      service  = "http://127.0.0.1:8123"
+      service  = "https://127.0.0.1:443"
       origin_request {
         disable_chunked_encoding = true
         http_host_header         = "home.paulus.family"
+        no_tls_verify            = true
       }
     }
 
