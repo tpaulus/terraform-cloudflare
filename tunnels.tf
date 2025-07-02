@@ -18,17 +18,6 @@ resource "cloudflare_tunnel_config" "brickyard_warp_tunnel_config" {
     }
 
     ingress_rule {
-      hostname = "home.paulus.family"
-      path     = "/"
-      service  = "https://127.0.0.1:443"
-      origin_request {
-        disable_chunked_encoding = true
-        http_host_header         = "home.paulus.family"
-        no_tls_verify            = true
-      }
-    }
-
-    ingress_rule {
       hostname = "woodlandpark-ssh.access.brickyard.whitestar.systems"
       path     = "/"
       service  = "tcp://10.0.10.32:22"
