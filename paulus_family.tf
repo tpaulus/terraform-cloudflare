@@ -33,9 +33,18 @@ resource "cloudflare_record" "home-assistant" {
   zone_id         = cloudflare_zone.paulus_family.id
   name            = "home"
   type            = "CNAME"
-  proxied         = true
-  content         = cloudflare_tunnel.brickyard_warp_tunnel.cname
-  allow_overwrite = true
+  proxied         = false
+  content         = ywl5a8vz9is480i93s5ma826rcn7j8mw.ui.nabu.casa
+  allow_overwrite = false
+}
+
+resource "cloudflare_record" "home-assistant-cert" {
+  zone_id         = cloudflare_zone.paulus_family.id
+  name            = "_acme-challenge.home"
+  type            = "CNAME"
+  proxied         = false
+  content         = _acme-challenge.ywl5a8vz9is480i93s5ma826rcn7j8mw.ui.nabu.casa
+  allow_overwrite = false
 }
 
 resource "cloudflare_record" "paperless" {
