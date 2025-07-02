@@ -34,7 +34,7 @@ resource "cloudflare_record" "home-assistant" {
   name            = "home"
   type            = "CNAME"
   proxied         = false
-  content         = ywl5a8vz9is480i93s5ma826rcn7j8mw.ui.nabu.casa
+  content         = "ywl5a8vz9is480i93s5ma826rcn7j8mw.ui.nabu.casa"
   allow_overwrite = false
 }
 
@@ -43,7 +43,7 @@ resource "cloudflare_record" "home-assistant-cert" {
   name            = "_acme-challenge.home"
   type            = "CNAME"
   proxied         = false
-  content         = _acme-challenge.ywl5a8vz9is480i93s5ma826rcn7j8mw.ui.nabu.casa
+  content         = "_acme-challenge.ywl5a8vz9is480i93s5ma826rcn7j8mw.ui.nabu.casa"
   allow_overwrite = false
 }
 
