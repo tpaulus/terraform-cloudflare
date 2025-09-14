@@ -31,7 +31,7 @@ resource "cloudflare_tunnel_config" "brickyard_warp_tunnel_config" {
     }
 
     ingress_rule {
-      hostname = "woodlandpark-webdav.access.brickyard.whitestar.systems"
+      hostname = "woodlandpark-webdav.brickyard.whitestar.systems"
       path     = "/"
       service  = "tcp://10.0.10.32:30035"
       origin_request {
