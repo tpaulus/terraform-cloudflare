@@ -52,12 +52,4 @@ resource "cloudflare_record" "tompaulus_com_www" {
   content = "tompaulus.com"
 }
 
-resource "cloudflare_record" "tompaulus_com_blog" {
-  zone_id = cloudflare_zone.tompaulus_com.id
-  name    = "blog"
-  type    = "CNAME"
-  proxied = true
-  content = "blog.auth-ing.k3s.brickyard.whitestar.systems"
-}
-
 // TODO Zone Configuration (Like Cache Settings)
