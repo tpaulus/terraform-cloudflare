@@ -112,62 +112,6 @@ resource "cloudflare_record" "k3s_auth_ingress" {
   content = "6bd25c6e-9222-43e6-bdb3-f989da6cbdb2.cfargotunnel.com"
 }
 
-resource "cloudflare_record" "brickyard_vlmcsd" {
-  zone_id = cloudflare_zone.whitestar_systems.id
-  name    = "vlmcsd.brickyard"
-  type    = "A"
-  proxied = false
-  content = "10.30.0.1"
-}
-
-resource "cloudflare_record" "netbox" {
-  zone_id = cloudflare_zone.whitestar_systems.id
-  name    = "netbox"
-  type    = "CNAME"
-  proxied = true
-  content = "netbox.auth-ing.k3s.brickyard.whitestar.systems"
-}
-
-resource "cloudflare_record" "grafana-brickyard" {
-  zone_id = cloudflare_zone.whitestar_systems.id
-  name    = "grafana.brickyard"
-  type    = "CNAME"
-  proxied = true
-  content = "grafana.auth-ing.k3s.brickyard.whitestar.systems"
-}
-
-resource "cloudflare_record" "n8n-brickyard" {
-  zone_id = cloudflare_zone.whitestar_systems.id
-  name    = "n8n.brickyard"
-  type    = "CNAME"
-  proxied = true
-  content = "n8n.auth-ing.k3s.brickyard.whitestar.systems"
-}
-
-resource "cloudflare_record" "auth" {
-  zone_id = cloudflare_zone.whitestar_systems.id
-  name    = "auth"
-  type    = "CNAME"
-  proxied = true
-  content = "zitadel.auth-ing.k3s.brickyard.whitestar.systems"
-}
-
-resource "cloudflare_record" "woodlandpark-smb" {
-  zone_id = cloudflare_zone.whitestar_systems.id
-  name    = "woodlandpark-ssh.access.brickyard"
-  type    = "CNAME"
-  proxied = true
-  content = cloudflare_tunnel.brickyard_warp_tunnel.cname
-}
-
-resource "cloudflare_record" "protect" {
-  zone_id = cloudflare_zone.whitestar_systems.id
-  name    = "protect.brickyard"
-  type    = "CNAME"
-  proxied = true
-  content = cloudflare_tunnel.brickyard_warp_tunnel.cname
-}
-
 resource "cloudflare_argo" "whitestar_systems_argo" {
   smart_routing = "on"
   zone_id       = cloudflare_zone.whitestar_systems.id
