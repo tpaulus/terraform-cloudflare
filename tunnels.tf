@@ -18,32 +18,6 @@ resource "cloudflare_tunnel_config" "brickyard_warp_tunnel_config" {
     }
 
     ingress_rule {
-      hostname = "woodlandpark-ssh.access.brickyard.whitestar.systems"
-      path     = "/"
-      service  = "tcp://10.0.10.32:22"
-      origin_request {
-        access {
-          aud_tag   = ["bdade16db3fd775d1a784f2cdafb7e6e4ec66302202aa0ff1c1dea2151d7bcc9"]
-          required  = true
-          team_name = "whitestar"
-        }
-      }
-    }
-
-    ingress_rule {
-      hostname = "woodlandpark-webdav.brickyard.whitestar.systems"
-      path     = "/"
-      service  = "tcp://10.0.10.32:30035"
-      origin_request {
-        access {
-          aud_tag   = ["e4327ef6863f4812c9106e769a218d89ec69531160b77384cfae743fe7c09151"]
-          required  = true
-          team_name = "whitestar"
-        }
-      }
-    }
-
-    ingress_rule {
       hostname = "protect.brickyard.whitestar.systems"
       path     = "/"
       service  = "https://10.0.10.10"

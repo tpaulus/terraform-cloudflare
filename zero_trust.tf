@@ -70,77 +70,6 @@ resource "cloudflare_teams_rule" "block_tor" {
   }
 }
 
-resource "cloudflare_device_managed_networks" "seaview" {
-  account_id = local.cf_account_id
-  name       = "Seaview"
-  type       = "tls"
-  config {
-    tls_sockaddr = "10.0.10.220:443"
-    sha256       = lower("D693C2456E86E0535A2801F6335FD801BD1CF1ADCC51413E1946D1FA696655C6")
-  }
-}
-
-# Warp Client Policies
-resource "cloudflare_device_settings_policy" "trusted_location_warp_policy" {
-  account_id            = local.cf_account_id
-  name                  = "Disable when on trusted network"
-  description           = ""
-  precedence            = 10
-  match                 = "network in {\"Seaview\"}"
-  default               = false
-  enabled               = true
-  allow_mode_switch     = false
-  allow_updates         = true
-  allowed_to_leave      = true
-  auto_connect          = 0
-  captive_portal        = 180
-  disable_auto_fallback = false
-  switch_locked         = false
-  service_mode_v2_mode  = "posture_only"
-  service_mode_v2_port  = 0
-  exclude_office_ips    = false
-}
-
-resource "cloudflare_device_settings_policy" "mobile_device_warp_policy" {
-  account_id            = local.cf_account_id
-  name                  = "Mobile Client"
-  description           = ""
-  precedence            = 20
-  match                 = "os.name in {\"ios\" \"android\"}"
-  default               = false
-  enabled               = false # Disabled until trusted_location_warp_policy is actually working - test via `warp-cli debug alternate-network`
-  allow_mode_switch     = false
-  allow_updates         = true
-  allowed_to_leave      = true
-  auto_connect          = 180
-  captive_portal        = 600
-  disable_auto_fallback = false
-  switch_locked         = false
-  service_mode_v2_mode  = "warp"
-  service_mode_v2_port  = 0
-  exclude_office_ips    = false
-}
-
-resource "cloudflare_device_settings_policy" "desktop_device_warp_policy" {
-  account_id            = local.cf_account_id
-  name                  = "Desktops"
-  description           = ""
-  precedence            = 30
-  match                 = "os.name in {\"windows\" \"mac\" \"chromeos\" \"linux\"}"
-  default               = false
-  enabled               = false # Disabled until trusted_location_warp_policy is actually working - test via `warp-cli debug alternate-network`
-  allow_mode_switch     = true
-  allow_updates         = true
-  allowed_to_leave      = true
-  auto_connect          = 180
-  captive_portal        = 600
-  disable_auto_fallback = false
-  switch_locked         = false
-  service_mode_v2_mode  = "warp"
-  service_mode_v2_port  = 0
-  exclude_office_ips    = false
-}
-
 resource "cloudflare_device_settings_policy" "default_warp_policy" {
   account_id            = local.cf_account_id
   name                  = ""
@@ -171,9 +100,6 @@ locals {
   ]
 
   device_settings_policy_ids = [
-    cloudflare_device_settings_policy.trusted_location_warp_policy.id,
-    cloudflare_device_settings_policy.mobile_device_warp_policy.id,
-    cloudflare_device_settings_policy.desktop_device_warp_policy.id,
     cloudflare_device_settings_policy.default_warp_policy.id,
   ]
 }
