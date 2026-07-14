@@ -29,27 +29,6 @@ resource "cloudflare_zone" "whitestar_systems" {
   zone       = "whitestar.systems"
 }
 
-module "whitestar_systems_email" {
-  source = "./modules/cloudflare_email_routing"
-
-  zone_id         = cloudflare_zone.whitestar_systems.id
-  allowed_senders = ["include:amazonses.com"]
-}
-
-resource "cloudflare_record" "whitestar_systems_keybase_verification" {
-  zone_id = cloudflare_zone.whitestar_systems.id
-  name    = "@"
-  type    = "TXT"
-  content = "keybase-site-verification=ZMKzMIfHqDIUV4SrGSCCRP09C0TSada5zNxdosjudGA"
-}
-
-resource "cloudflare_record" "whitestar_systems_github_verification" {
-  zone_id = cloudflare_zone.whitestar_systems.id
-  name    = "_github-challenge-ws-systems-org"
-  type    = "TXT"
-  content = "5a889d68b4"
-}
-
 resource "cloudflare_record" "whitestar_systems_brickyard_ips" {
   for_each = local.brickyard_local_ips
 
@@ -70,22 +49,6 @@ resource "cloudflare_record" "whitestar_systems_ipmi_ips" {
   content = each.value
 }
 
-resource "cloudflare_record" "whitestar_brickyard_ubnt" {
-  zone_id = cloudflare_zone.whitestar_systems.id
-  name    = "ubnt.brickyard"
-  type    = "CNAME"
-  proxied = false
-  content = "unifi-controller.brickyard.whitestar.systems"
-  ttl     = "30"
-}
-
-resource "cloudflare_record" "dmarc" {
-  zone_id = cloudflare_zone.whitestar_systems.id
-  name    = "_dmarc"
-  type    = "TXT"
-  content = "v=DMARC1; p=quarantine; rua=mailto:64203f8a3e304420b20686d30874ffc9@dmarc-reports.cloudflare.net"
-}
-
 resource "cloudflare_record" "k3s_primaries" {
   for_each = toset(local.k3s_primaries)
 
@@ -94,22 +57,6 @@ resource "cloudflare_record" "k3s_primaries" {
   type    = "A"
   proxied = false
   content = each.key
-}
-
-resource "cloudflare_record" "k3s_ingress" {
-  zone_id = cloudflare_zone.whitestar_systems.id
-  name    = "*.ing.k3s.brickyard"
-  type    = "A"
-  proxied = false
-  content = "10.30.0.0"
-}
-
-resource "cloudflare_record" "k3s_auth_ingress" {
-  zone_id = cloudflare_zone.whitestar_systems.id
-  name    = "*.auth-ing.k3s.brickyard"
-  type    = "CNAME"
-  proxied = true
-  content = "6bd25c6e-9222-43e6-bdb3-f989da6cbdb2.cfargotunnel.com"
 }
 
 resource "cloudflare_argo" "whitestar_systems_argo" {
