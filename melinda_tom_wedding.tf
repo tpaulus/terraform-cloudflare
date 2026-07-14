@@ -6,36 +6,6 @@ resource "cloudflare_zone" "melinda_tom_wedding" {
   zone       = "melinda-tom.wedding"
 }
 
-module "melinda_tom_wedding_email" {
-  source = "./modules/fastmail"
-
-  zone_id                             = cloudflare_zone.melinda_tom_wedding.id
-  fqdn                                = cloudflare_zone.melinda_tom_wedding.zone
-  create_client_configuration_records = false
-
-  allowed_senders      = ["include:amazonses.com"]
-  dmarc_report_address = "mailto:9782f98c803c4a17afc4d07788d2af87@dmarc-reports.cloudflare.net"
-}
-
-resource "cloudflare_record" "www_melinda_tom_wedding" {
-  comment = "WWW is redirected via a Redirect Rule."
-  name    = "www"
-  proxied = true
-  ttl     = 1
-  type    = "AAAA"
-  content = "100::"
-  zone_id = cloudflare_zone.melinda_tom_wedding.id
-}
-
-resource "cloudflare_record" "apex_melinda_tom_wedding" {
-  name    = "melinda-tom.wedding"
-  proxied = true
-  ttl     = 1
-  type    = "CNAME"
-  content = "melinda-tom-wedding.pages.dev"
-  zone_id = cloudflare_zone.melinda_tom_wedding.id
-}
-
 resource "cloudflare_ruleset" "melinda_tom_wedding_http_config_settings" {
   kind    = "zone"
   name    = "default"
