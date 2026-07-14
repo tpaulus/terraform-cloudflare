@@ -28,11 +28,3 @@ resource "cloudflare_record" "pirate_ship_bounces" {
   content = "pm.mtasv.net"
   proxied = false
 }
-
-resource "cloudflare_record" "paperless" {
-  zone_id = cloudflare_zone.paulus_family.id
-  name    = "paperless"
-  type    = "CNAME"
-  proxied = true
-  content = "paperless.auth-ing.k3s.brickyard.whitestar.systems"
-}
